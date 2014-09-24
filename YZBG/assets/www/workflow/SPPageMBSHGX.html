@@ -1,0 +1,582 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+<style>
+.labelclass {
+	width: 120px;
+	border: 0;
+	text-align: right;
+	font-size: 16px;
+	font-weight: 900;
+}
+.labelnrclass {
+	border: 0;
+	text-align: left;
+}
+</style>
+<style>
+table tr {
+	height: 35px;
+	line-height: 35px;
+}
+.tdfont {
+	font-weight: 900
+}
+
+.shsptdlableduan{
+	width:55px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;
+}
+.shsptdvalueduan{
+width:75px;
+}
+.shsptdlablechang{
+width:55px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;
+}
+.shsptdvaluechang{
+
+}
+
+body {
+	text-shadow: 0 0px 0 #FFF
+}
+table.gridtable {
+	font-family: verdana, arial, sans-serif;
+	font-size: 11px;
+	color: #333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table.gridtable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #3F73A4;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#3F73A4), to(#5995BF));
+	background-color: #5995BF;
+	font-size: 16px;
+	color: #FFF;
+	text-shadow: 0 0px 0 #FFF;
+}
+table.gridtable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #3F73A4;
+	background-color: #ffffff;
+	font-size: 16px
+}
+.lablexs {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+	font-size: 16px
+}
+</style>
+<link rel="stylesheet" href="../css/jquery.mobile-1.3.2.min.css">
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" charset="utf-8" src="../cordova-2.0.0.js"></script>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jquery.mobile-1.3.2.min.js"></script>
+<script type="text/javascript" src="../js/all.js"></script>
+<script language='javascript' src='../js/serverIp.js' ></script>
+<title>主页</title>
+<script language="JavaScript">
+         javascript:window.history.forward(1);
+</script>
+<script type="text/javascript">
+ $(document).ready(function(){
+/*	 $('#textareaid').click(function(){
+	alert($('#textareaid').val().replace(/^\s+|\s+$/g,""));
+});*/
+	 
+$('#textareaid').blur(function(){
+	if($('#textareaid').val().replace(/^\s+|\s+$/g,"") ===""){
+		$('#textareaid').val('请输入不同意理由，不要操过15个汉字！');
+	}
+});
+ $('#textareaid').focus(function(){
+	if($('#textareaid').val().replace(/^\s+|\s+$/g,"") == "请输入不同意理由，不要操过15个汉字！"){
+		$('#textareaid').val('不同意此审批!');
+	}
+});
+ 
+//	 getSpyjInfo();//获取审批意见信息
+//	selectOnchangeVal();
+ })
+//审批界面，选择审批结果
+function selectOnchangeVal(){
+
+/*	var t = document.getElementById("selectId"); 
+	alert(t.options[t.selectedIndex].text);//js 获取select 值
+*/
+
+//	alert($("#selectId").find("option:selected").text());//jquery 获取select值
+var selectVal =$("#selectId").find("option:selected").val();
+	if(selectVal != 'xianshi'){
+	
+		switch(selectVal){
+		case 'ty':
+$("#spjgTYhideaid").click();
+		  break;
+		case 'bty':
+$("#spjgBTYhideaid").click();	
+		  break;
+		case 'zj':
+		
+		break;
+		default:
+		
+		}
+	}//if
+
+}//selectOnchangeVal
+
+</script>
+<script type="application/javascript">
+
+function dtjztyzjr(){//动态加载同意转交人信息
+	
+	var list = $(" <option value=\"zj\">转交</option>");
+	$("#sptyselectId").append(list);
+}
+
+</script>
+<script type="application/javascript">
+//审批意见
+var instid = getUrlParam("instid");
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataDecent?instid="+instid+"&callbackname=getspxmmbcallback&hid=864219020023223&sqlid=15&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});	
+
+</script>
+</head>
+<body>
+<a href="#spjgBTYpage" data-rel="dialog" id="spjgBTYhideaid"></a><!--onclick="getzrgninfobyguid('11')"--> 
+<a href="#spjgTYpage" data-rel="dialog" id="spjgTYhideaid"></a><!--onclick="getzrgninfobyguid('11')"-->
+
+<div data-role="page" id="pageone" data-theme="b" style="color:#4073A5">
+  <div data-role="header" data-position="fixed"> 
+    <!--     <a href="#" onclick="jumpInfoPage('SPLieBiao.html')"><img src="../images/fh3.png" width="30" height="19" /></a> 返回图片按钮-->
+    <h1>审批信息</h1>
+    <a href="#" data-role="button" data-icon="home" onclick="jumpInfoPage('SPIndex.html')">首页</a> </div>
+  <div data-role="content" style="text-align:center; background-color: #B5DAFF;" >
+    <h2 style=" font-weight:900" id="SPTitleId">社会关系审批</h2>
+    
+    <!--		zf信息-->
+    <div id="zfxxxinxidivid" > </div>
+    <script id="zfxxxinxiscriptid" type="text/html">
+<table class="gridtable" border="1" cellspacing="0" cellpadding="0"><tr> <th style="width:116.66px;" scope="col">姓名</th> <th scope="col" style="width:116.66px;">案情</th><th scope="col" style="width:116.66px">刑期</th></tr>
+    {{each  as value i}}
+			<tr><td style="text-align:center"><a href="#shgxsppage" data-rel="dialog" onclick="getshspzfxxd('{{value.BH}}')"> {{value.XM}}</a></td><td>{{value.ZM}}</td><td style="text-align:center">{{value.XQ}}</tr>
+    {{/each}}
+
+</table>
+</script> 
+    <script>
+function getshgxspByinstesconrtid(data){
+var html = template('zfxxxinxiscriptid', data);
+document.getElementById('zfxxxinxidivid').innerHTML = html;
+
+//获取证明材料sa
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataSJ?instesconrtid="+window.sessionStorage.getItem("shspinstesconrtid")+"&cs=sa&callbackname=getSHSPZMCLcallbacksa&hid=864219020023223&sqlid=105&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});
+}
+
+function getshspzfxxd(bh){
+//获取罪犯信息 
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetData?shgxspxxzfbh="+window.sessionStorage.getItem("shgxspxxzfbh")+"&callbackname=getshspzfxxdcallback&hid=864219020023223&sqlid=103&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});
+}
+function getshspzfxxdcallback(data){
+	$("#shspzfinfo_xm").text(data[0].XM);
+	$("#shspzfinfo_xb").text(data[0].XB);
+	$("#shspzfinfo_csrq").text(data[0].CSRQ);
+	$("#shspzfinfo_an").text(data[0].ZM);
+	$("#shspzfinfo_xq").text(data[0].XQ);
+	$("#shspzfinfo_xqqzr").text(data[0].qr+" - "+data[0].zr);
+	$("#shspzfinfo_jtzz").text(data[0].JTZZ);
+	$("#shspzfinfo_zflb").text(data[0].AFLB);
+
+}
+
+</script> 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!------社会关系信息-->
+    <label>社会关系审批信息</label>
+    <div id="SHGXdivid" > </div>
+    <script id="SHGXscriptid" type="text/html">
+
+<table class="gridtable"  border="1" cellspacing="0" cellpadding="0">
+    {{each  as value i}}
+			<tr>
+				<td class="tdfont shsptdlableduan" >关系</td>
+				<td class="shsptdvalueduan" >{{value.gx}}</td>
+				<td class="tdfont shsptdlableduan" >姓名</td>
+				<td class="shsptdvalueduan">{{value.xm}}</td>				
+			</tr>
+			<tr>
+				<td class="tdfont shsptdlableduan" >性别</td>
+				<td class="shsptdvalueduan">{{value.XB}}</td>
+				<td class="tdfont shsptdlableduan" >年龄</td>
+				<td class="shsptdvalueduan">{{value.nl}}</td>				
+			</tr>		
+			<tr>
+				<td class="tdfont shsptdlableduan" >面貌</td>
+				<td class="shsptdvalueduan">{{value.mm}}</td>
+				<td class="tdfont shsptdlableduan" >职业</td>
+				<td class="shsptdvalueduan">{{value.zy}}</td>				
+			</tr>
+			<tr>
+				<td class="tdfont shsptdlablechang" >家庭住址</td>
+				<td class="shsptdvaluechang" colspan="3" >{{value.jtzz}}</td>
+			</tr>
+			<tr>
+				<td class="tdfont shsptdlablechang" >有效证件</td>
+				<td class="shsptdvaluechang" colspan="3" >{{value.yxzj}}</td>
+			</tr>
+			
+				
+				<tr>
+				<td class="tdfont shsptdlablechang" >单位住址</td>
+				<td class="shsptdvaluechang" colspan="3" >{{value.dwzz}}</td>
+			</tr>
+			<tr>
+				<td class="tdfont shsptdlablechang" >电话号码</td>
+				<td class="shsptdvaluechang" colspan="3" >{{value.dh}}</td>
+			</tr>
+			<tr>
+				<td class="tdfont shsptdlablechang" >手机号码</td>
+				<td class="shsptdvaluechang" colspan="3" >{{value.mobile}}</td>
+			</tr>			
+			<tr>
+				<td class="tdfont shsptdlableduan" >主联系人</td>
+				<td class="shsptdvalueduan">{{value.lxbz}}</td>
+				<td class="tdfont shsptdlableduan" >监护人</td>
+				<td class="shsptdvalueduan">{{value.jhr}}</td>				
+			</tr>	
+			<tr>
+				<td class="tdfont shsptdlableduan" >允许会见</td>
+				<td class="shsptdvalueduan">{{value.hj}}</td>
+				<td class="tdfont shsptdlableduan" >允许亲情电话</td>
+				<td class="shsptdvalueduan">{{value.qqdh}}</td>				
+			</tr>		
+			
+    {{/each}}
+
+</table>
+</script> 
+    <script>
+function getspgxzfxxcallback(data){
+
+// 
+if(data[0].hj ==="是"){
+	 $("#yxhj").attr("checked","checked");
+}
+if(data[0].qqdh ==="是"){
+	 $("#yxqqdh").attr("checked","checked");
+}
+
+	
+window.sessionStorage.setItem("shgxspxxzfbh",data[0].bh);//获取zf编号
+
+var html = template('SHGXscriptid', data);
+document.getElementById('SHGXdivid').innerHTML = html;
+//获取罪犯信息 
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetData?shgxspxxzfbh="+window.sessionStorage.getItem("shgxspxxzfbh")+"&callbackname=getshgxspByinstesconrtid&hid=864219020023223&sqlid=103&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});
+}
+
+
+
+
+</script> 
+    
+<!--/*证明材料*/-->    
+<label id="zmcllabel"></label>
+    <div id="zmcldivid" > </div>
+<script>
+var zmcltable="<table class=\"gridtable\">";
+function getSHSPZMCLcallbacksa(data){
+zmcltable+="<tr><td class=\"tdfont\" style=\"width:150px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;\">身份证明</td><td style=\"width:200px\">";
+	for(var ii = 0; ii < data.length; ii++){
+		zmcltable+="<a href=\"#\" onclick=\"getzmclbypath('"+data[i].relpath+"')\">"+data[i].zmclmc+"</a>"
+	}
+zmcltable+="</td></tr>";
+
+	//获取证明材料sb
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataSJ?instesconrtid="+window.sessionStorage.getItem("shspinstesconrtid")+"&cs=sb&callbackname=getSHSPZMCLcallbacksb&hid=864219020023223&sqlid=105&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});
+}  //getSHSPZMCLcallbacksa
+function getSHSPZMCLcallbacksb(data){
+
+zmcltable+="<tr><td class=\"tdfont\" style=\"width:150px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;\">电话持有证明</td><td style=\"width:200px\">";
+
+	for(var ii = 0; ii < data.length; ii++){
+		zmcltable+="<a href=\"#\" onclick=\"getzmclbypath('"+data[i].relpath+"')\">"+data[i].zmclmc+"</a>"
+	}
+	
+zmcltable+="</td></tr>";	
+	
+//获取证明材料sc
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataSJ?instesconrtid="+window.sessionStorage.getItem("shspinstesconrtid")+"&cs=sc&callbackname=getSHSPZMCLcallbacksc&hid=864219020023223&sqlid=105&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});
+} //getSHSPZMCLcallbacksa
+function getSHSPZMCLcallbacksc(data){
+
+zmcltable+="<tr><td class=\"tdfont\" style=\"width:150px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;\">关系证明</td><td style=\"width:200px\">";
+	
+	for(var ii = 0; ii < data.length; ii++){
+		zmcltable+="<a href=\"#\" onclick=\"getzmclbypath('"+data[i].relpath+"')\">"+data[i].zmclmc+"</a>"
+	}
+	
+zmcltable+="</td></tr>";	
+	
+//获取证明材料sd
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataSJ?instesconrtid="+window.sessionStorage.getItem("shspinstesconrtid")+"&cs=sd&callbackname=getSHSPZMCLcallbacksd&hid=864219020023223&sqlid=105&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});
+} //getSHSPZMCLcallbacksc
+function getSHSPZMCLcallbacksd(data){
+
+zmcltable+="<tr><td class=\"tdfont\" style=\"width:150px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;\">监狱调查反馈</td><td style=\"width:200px\">";
+	
+	for(var ii = 0; ii < data.length; ii++){
+		zmcltable+="<a href=\"#\" onclick=\"getzmclbypath('"+data[i].relpath+"')\">"+data[i].zmclmc+"</a>"
+	}
+	
+zmcltable+="</td></tr>";
+
+zmcltable += "</table>";
+//alert(zmcltable+"zmcltable");
+
+$("#zmcllabel").text("证明材料");
+$("#zmcldivid").prepend(zmcltable);	
+} 
+</script> 
+   
+    
+    
+    
+    <!--        审批意见-->
+    <label id="spyj"></label>
+    <div id="spyjxinxidivid" > </div>
+    <script id="spyjxinxi" type="text/html">
+<table class="gridtable"  border="1" cellspacing="0" cellpadding="0">
+    {{each  as value i}}
+<tr> <td class="tdfont" style="width:150px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;">{{value.actname}}</td><td style="width:200px;text-align:left">{{value.instactstatedesc}} {{value.instactopername}} <p style=" float:right">{{value.instactactiontime}} </p> </td> </tr>
+    {{/each}}
+</table>
+</script> 
+    <script>
+
+
+
+function getspxmmbcallback(data){
+window.sessionStorage.setItem("InstEsconrtID",data[0].InstEsconrtID);
+  for(var i = 0; i < data.length; i++){//先把以后要的数据 取出来
+if(data[i].instactopersiren === window.localStorage.getItem("jh")){
+	window.sessionStorage.setItem("instactid",data[i].instactid);
+
+//1.只有确认按钮，转交2是审批环节同意和不同意，转交
+	if(data[i].actrule === "1"){
+		$("#qrid").text("确认");
+		$("#qrdivid").show();
+	}else if(data[i].actrule === "2"){
+		$("#tyaid").text("同意");
+		$("#btyaid").text("不同意");		
+		
+		$("#spdivid").show();
+
+	}
+	var instactoperuserranges=data[i].instactoperuserrange.data;
+		for(var ii = 0; ii < instactoperuserranges.length; ii++){//在获取审批类表的同时，把可以转交的人的信息，放到select中
+			var zjlist = $(" <option value=\""+instactoperuserranges[ii].jh+"\">"+instactoperuserranges[ii].xm+"</option>");
+			$("#spzjselectId").append(zjlist);		
+		}
+}
+}
+
+var html = template('spyjxinxi', data);
+document.getElementById('spyjxinxidivid').innerHTML = html;
+$("#spyj").text("审批意见");	
+
+var instid = getUrlParam("instid");
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataDecent?instid="+instid+"&callbackname=getshgxidbyinstid&hid=864219020023223&sqlid=101&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});
+}
+
+//根据实例id获取，社会关系审批id
+function getshgxidbyinstid(data){
+window.sessionStorage.setItem("shspinstesconrtid",data[0].instesconrtid);
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetData?instesconrtid="+data[0].instesconrtid+"&callbackname=getspgxzfxxcallback&hid=864219020023223&sqlid=102&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});
+}
+</script> 
+  </div>
+  <!--content--> 
+  
+  <!--  确定、同意、不同意、转交-->
+  
+  <div align="center" style="display: none;background-color: #B5DAFF;" id="qrdivid" > <a href="#shgxsptydiv" data-role="button" data-rel="dialog" data-inline="true" style="width:90px" onclick="shgxspty()"><span id="qrid"></span></a> <a href="#zjpage" data-role="button" data-rel="dialog" data-inline="true" style="width:90px"><span id="zjaid">转交</span></a> </div>
+  
+  <div align="center" style="display: none;background-color: #B5DAFF;" id="spdivid"> <a href="#" data-role="button" data-inline="true" style="width:90px" onclick="spjgtyorqr()"><span id="tyaid"></span></a> <a href="#spjgBTYpage" data-role="button" data-rel="dialog" data-inline="true" style="width:90px"><span id="btyaid"></span></a> <a href="#zjpage" data-role="button" data-rel="dialog" data-inline="true" style="width:90px"><span id="zjaid">转交</span></a> </div>
+</div>
+</div>
+
+<!------------------------------zf信息-->
+<div data-role="page" id="shgxsppage" style="padding-top:100px" data-close-btn="right">
+  <div data-role="header">
+    <h1>离监人员信息</h1>
+  </div>
+  <div data-role="content" align="center">
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="labelclass" scope="col">姓名：</td>
+        <td class="labelnrclass" scope="col"><span id="shspzfinfo_xm"></span></td>
+      </tr>
+      <tr>
+        <td class="labelclass">性别：</td>
+        <td class="labelnrclass"><span id="shspzfinfo_xb"></span></td>
+      </tr>
+      <tr>
+        <td class="labelclass">出生日期：</td>
+        <td class="labelnrclass"><span id="shspzfinfo_csrq"></span></td>
+      </tr>
+      <tr>
+        <td class="labelclass">案情：</td>
+        <td class="labelnrclass"><span id="shspzfinfo_an"></span></td>
+      </tr>
+      <tr>
+        <td class="labelclass">刑期：</td>
+        <td class="labelnrclass"><span id="shspzfinfo_xq"></span></td>
+      </tr>
+      <tr>
+        <td class="labelclass">刑期起止日：</td>
+        <td class="labelnrclass"><span id="shspzfinfo_xqqzr"></span></td>
+      </tr>
+      <tr>
+        <td class="labelclass">家庭住址：</td>
+        <td class="labelnrclass"><span id="shspzfinfo_jtzz"></span></td>
+      </tr>
+      <tr>
+        <td class="labelclass">罪犯类别：</td>
+        <td class="labelnrclass"><span id="shspzfinfo_zflb"></span></td>
+      </tr>
+    </table>
+  </div>
+  <div data-role="footer">
+    <h1></h1>
+  </div>
+</div>
+
+<!--审批结果界面-->
+<div data-role="page" id="spjgBTYpage" style="padding-top:100px" data-close-btn="right">
+  <div data-role="header">
+    <h1>审批操作</h1>
+  </div>
+  <div data-role="content" align="center">
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td style=" font-weight:900">不同意理由：</td>
+        <td><textarea style="height:80px" maxlength="15" id="textareaid">请输入不同意理由，不要操过15个汉字！</textarea></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td align="right" style="margin-right:20px"><a href="#" data-role="button" data-theme="b" onclick="btytj()" style="width:50%" >提交</a></td>
+      </tr>
+    </table>
+  </div>
+  <div data-role="footer">
+    <h1></h1>
+  </div>
+</div>
+
+<!--zhuanjiao 转交-->
+<div data-role="page" id="zjpage" style="padding-top:100px" data-close-btn="right">
+  <div data-role="header">
+    <h1>审批操作</h1>
+  </div>
+  <div data-role="content" align="center">
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td style=" font-weight:900">转交给：</td>
+        <td><fieldset data-role="controlgroup" data-type="horizontal">
+            <select name="spzjselectId" id="spzjselectId">
+            </select>
+          </fieldset></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td align="right" style="margin-right:20px"><a href="#" data-role="button" data-theme="b" onclick="spzjbutton()" >提交</a></td>
+      </tr>
+    </table>
+  </div>
+  <div data-role="footer">
+    <h1></h1>
+  </div>
+</div>
+
+
+
+<!--社会关系审批，是否允许会见和是否预习亲情电话-->
+<div data-role="page" id="shgxsptydiv" style="padding-top:100px" data-close-btn="right">
+  <div data-role="header">
+    <h1>审批信息</h1>
+  </div>
+
+  <div data-role="content" align="center">
+
+    <table border="0" cellspacing="0" cellpadding="0" style="margin-top:-11px">
+
+     <tr style="font-size:16px; font-weight:700; text-align:left; margin-top:5px"> 
+	 	<td colspan="2">
+      	         <legend>是否允许以下操作：</legend>     
+        </td>
+     </tr>
+      <tr>
+       <td>
+             <fieldset data-role="controlgroup">
+                <label for="yxhj">允许会见</label>
+                <input type="checkbox" name="yxhj" id="yxhj" value="yxhj">
+             </fieldset>
+        </td>
+		 <td>
+         	<fieldset data-role="controlgroup">
+                <label for="yxqqdh">亲情电话</label>
+                <input type="checkbox" name="yxqqdh" id="yxqqdh" value="yxqqdh">
+             </fieldset>
+         </td>
+      </tr>
+      
+       <tr>
+       <td>
+           
+        </td>
+		 <td>
+			    <a href="#" data-role="button" data-theme="b" onclick="shgxbutton()" >提交</a>
+         </td>
+      </tr>
+     
+    </table>
+    
+
+  </div>
+  <div data-role="footer">
+    <h1></h1>
+  </div>
+</div>
+
+
+</body>
+</html>

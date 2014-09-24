@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta http-equiv="Access-Control-Allow-Origin" content="*">
+<!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+	<style>
+    .labelclass{width:120px; border:0; text-align:right; font-size:16px;font-weight:900;}
+	.labelnrclass{ border:0; text-align:left;}
+    </style>
+    <style>
+table tr{
+    height:25px;
+    line-height:25px;
+}
+</style>
+    
+		<link rel="stylesheet" href="../css/jquery.mobile-1.3.2.min.css">
+        
+        <script type="text/javascript" charset="utf-8" src="../cordova-2.0.0.js"></script>      
+		<script type="text/javascript" src="../js/jquery.js"></script>    
+		<script type="text/javascript" src="../js/jquery.mobile-1.3.2.min.js"></script>
+
+
+   		<script type="text/javascript" src="../js/all.js"></script>
+        <script language='javascript' src='../js/serverIp.js' ></script>
+		<title>主页</title>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+	 getLSCRZInfo();//获取审批意见信息
+//	selectOnchangeVal();
+ })
+//审批界面，选择审批结果
+function selectOnchangeVal(){
+
+/*	var t = document.getElementById("selectId"); 
+	alert(t.options[t.selectedIndex].text);//js 获取select 值
+*/
+
+//	alert($("#selectId").find("option:selected").text());//jquery 获取select值
+var selectVal =$("#selectId").find("option:selected").val();
+	if(selectVal != 'xianshi'){
+	
+		switch(selectVal){
+		case 'ty':
+$("#spjgTYhideaid").click();
+		  break;
+		case 'bty':
+$("#spjgBTYhideaid").click();	
+		  break;
+		case 'zj':
+		
+		break;
+		default:
+		
+		}
+	}//if
+
+}//selectOnchangeVal
+
+</script>
+<script type="application/javascript">
+
+function dtjztyzjr(){//动态加载同意转交人信息
+	
+	var list = $(" <option value=\"zj\">转交</option>");
+	$("#sptyselectId").append(list);
+}
+//审批同意，同意按钮
+function sptybutton(){
+var tyzjrselectVal =$("#sptyselectId").find("option:selected").val();//审批结果同意转交人信息
+	
+}
+</script>
+
+</head>	
+<body>
+<a href="#spjgBTYpage" data-rel="dialog" id="spjgBTYhideaid"></a><!--onclick="getzrgninfobyguid('11')"-->
+<a href="#spjgTYpage" data-rel="dialog" id="spjgTYhideaid"></a><!--onclick="getzrgninfobyguid('11')"-->
+
+<div data-role="page" id="pageone" data-theme="b">
+  <div data-role="header" data-position="fixed">
+     <a href="#" onclick="jumpInfoPage('SPLieBiao.html')"><img src="../images/fh3.png" width="30" height="19" /></a>
+    <h1>审批信息</h1>
+    	<div style="float:right; margin-top:-45px">
+     		 <fieldset data-role="controlgroup" data-type="horizontal">
+              <select name="selectId" id="selectId" onchange="selectOnchangeVal()">
+              <option value="xianshi">选择操作结果</option>
+              <option value="ty">同意</option>
+              <option value="bty">不同意</option>
+              <option value="zj">转交</option>
+            </select>
+         </fieldset>
+		</div>
+  </div>
+
+<div data-role="content" style="text-align:center">
+<h2 style=" font-weight:900" id="SPTitleId"></h2>
+
+
+<!--        出入证事由、带领干警、和人数-->
+        <div id="shiyouorganjingorrenshudivid" >
+    		
+       </div>
+<!--        离去临时出入证人员名单-->
+		<label>领取临时出入证人员名单</label>
+       <div id="lscrzmddivid" >
+			
+       </div>
+   
+   
+   
+   
+</div><!--content-->
+  <div data-role="footer" data-position="fixed">
+  <h1>更新于  <span id="sppagegxyid"></span></h1>
+  </div>
+</div> 
+
+</div>
+
+
+
+
+
+
+
+
+<!------------------------------zf信息-->
+<div data-role="page" id="ljrypage" style="padding-top:100px" data-close-btn="right">
+  <div data-role="header">
+    <h1>离监人员信息</h1>
+  </div>
+
+  <div data-role="content" align="center">
+
+  <table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="labelclass" scope="col">姓名：</td>
+    <td class="labelnrclass" scope="col"><span id="ljryinfo_xm"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">性别：</td>
+    <td class="labelnrclass"><span id="ljryinfo_xb"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">出生日期：</td>
+    <td class="labelnrclass"><span id="ljryinfo_csrq"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">案情：</td>
+    <td class="labelnrclass"><span id="ljryinfo_an"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">刑期：</td>
+    <td class="labelnrclass"><span id="ljryinfo_xq"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">刑期起止日：</td>
+    <td class="labelnrclass"><span id="ljryinfo_xqqzr"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">家庭住址：</td>
+    <td class="labelnrclass"><span id="ljryinfo_jtzz"></span></td>
+  </tr>
+    <tr>
+  <td class="labelclass">罪犯类别：</td>
+    <td class="labelnrclass"><span id="ljryinfo_zflb"></span></td>
+  </tr>
+</table>
+
+
+        	     
+
+  </div>
+
+  <div data-role="footer">
+ 	 <h1></h1>
+  </div>
+</div> 
+
+
+
+
+<!--审批结果界面-->
+<div data-role="page" id="spjgBTYpage" style="padding-top:100px" data-close-btn="right">
+  <div data-role="header">
+    <h1>审批操作</h1>
+  </div>
+
+  <div data-role="content" align="center">
+ <table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td style=" font-weight:900">理由：</td>
+    <td><textarea style="height:80px"></textarea></td>
+  </tr>
+  
+    <tr>
+    <td></td>
+    <td align="right" style="margin-right:20px"><a href="#" data-role="button" data-theme="b" onclick="test()" style="width:50%" >不同意</a></td>
+  </tr>
+ </table>
+
+ 
+        	     
+
+  </div>
+
+  <div data-role="footer">
+ 	 <h1></h1>
+  </div>
+</div> 
+
+
+<!--审批同意-->
+<div data-role="page" id="spjgTYpage" style="padding-top:100px" data-close-btn="right">
+  <div data-role="header">
+    <h1>审批操作</h1>
+  </div>
+
+  <div data-role="content" align="center">
+ <table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td style=" font-weight:900">转交人：</td>
+    <td>
+    		 <fieldset data-role="controlgroup" data-type="horizontal">
+              <select name="sptyselectId" id="sptyselectId">
+            
+            </select>
+         </fieldset>
+    </td>
+  </tr>
+  
+    <tr>
+    <td></td>
+    <td align="right" style="margin-right:20px"><a href="#" data-role="button" data-theme="b" onclick="sptybutton()" >同意</a></td>
+  </tr>
+ </table>
+
+ 
+        	     
+
+  </div>
+
+  <div data-role="footer">
+ 	 <h1></h1>
+  </div>
+</div> 
+
+
+
+
+
+
+
+</body>
+</html>
+    
+
+

@@ -1,5 +1,7 @@
 // JavaScript Document
-  var tbgzdb = window.openDatabase("tbgzzfxxt", "1.0","数据库描述",20000);//-------------------------------------------这是特别关注zf的信息
+var datas;
+var datasTBGZByJH;
+var datatbgz;
 //获取url中的一个参数，多个不行
 function getUrlParam(name)
 {
@@ -357,16 +359,97 @@ $.getScript(getServerIpAddress()+"/YZBGinterface/GetData?par="+escape(escape(srv
 }
 //获取后台数据后的回调方法
 function getServerDetaCallBack(data){
-createTBGZSJK();//如果有特别关注数据库和表，创建爱你
-	$("#list").find("li").remove();//先删除以前的数据		 
-			  for(var i = 0; i < data.length; i++){
-			 var list ="<li class='' data-icon='false' data-theme='d'> <a  href='#' data-ajax=\"false\" onclick='getJTXXByBh("+data[i].BH+",\""+data[i].BH+"\")'> <img  width='100px'  heigth='10px' src='http://210.73.88.55:28000/%E7%B3%BB%E7%BB%9F%E5%9B%BE%E7%89%87/111.png'>"+
-			 "<p class='ui-li-desc'>姓名："+data[i].XM+"("+data[i].BH+")</p> "+
-			 " <p class='ui-li-desc'>性别："+data[i].XB+"&nbsp&nbsp&nbsp&nbsp年龄："+data[i].NL+"&nbsp&nbsp&nbsp&nbsp刑期："+data[i].XQ+"</p>"+
-			 "<p class='ui-li-desc'>家庭地址："+data[i].HJZZ+"</p>"+
-			 "<p class='ui-li-desc'>犯罪类型："+data[i].XAFLB+"&nbsp&nbsp&nbsp&nbsp罪名："+data[i].ZM+"</p></a>";
+datas=data;  
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataSJ?jh="+window.localStorage.getItem("jh")+"&callbackname=getTBGZByJh&hid=864219020023223&sqlid=1000&appid=11",function(response,status){/*alert(response+"--funciton--"+status);*/});			
+		
 
-list +="<a href=\"#\" data-rel=\"dialog\" data-transition=\"pop\" data-icon=\"star\" id="+data[i].BH+" data-theme=\"a\" onclick=\"setgz('"+data[i].BH+"','"+data[i].XM+"','"+data[i].XB+"','"+data[i].NL+"','"+data[i].XQ+"','"+data[i].HJZZ+"','"+data[i].XAFLB+"','"+data[i].ZM+"')\">Download Browser</a> "
+
+}
+//根据警号，获取，特别关注信息
+function getTBGZByJh(data){
+datasTBGZByJH=data;
+getgzxx();	
+}
+
+	//设置特别关注zf
+	function setgz(bh,xm,dbbm,dw,xqzr,csrq,zm){//+escape(escape(srval))+values('[[bh]]','[[dbbm]]','[[xm]]','[[dw]]','[[csrq]]','[[zm]]','[[xqzr]]','[[gjjh]]')
+	$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataSJ?jh="+window.localStorage.getItem("jh")+"&bh="+bh+"&callbackname=setTEGZqianChaxuncallback&hid=864219020023223&sqlid=1002&appid=11",function(response,status){
+	if(datatbgz[0].tbgzcount==0){//说明没有关注
+					$.getScript(getServerIpAddress()+"/YZBGinterface/InsertData?&callbackname=inserttbgzcallback&bh="+bh+"&dbbm="+escape(escape(dbbm))+"&xm="+escape(escape(xm))+"&dw="+escape(escape(dw))+"&csrq="+csrq+"&zm="+escape(escape(zm))+"&xqzr="+xqzr+"&gjjh="+window.localStorage.getItem("jh")+"&hid=864219020023223&sqlid=1001&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});	
+	}else{
+		alert("已经关注，无需重复关注");
+	}
+});	//function(response,status)
+
+		
+	}
+//查看是否关注了此 罪犯	
+function setTEGZqianChaxuncallback(data){
+datatbgz=data;
+}
+	
+function inserttbgzcallback(data){
+	if(data[0].result == "Succss"){
+		alert("关注成功！");
+	}else{
+		alert("关注失败！");	
+	}
+}	
+	
+//关注的人，按钮变化
+function getgzxx(){
+/*alert(datas.length);
+alert(datasTBGZByJH.length);*/
+	$("#list").find("li").remove();//先删除以前的数据		 
+			  for(var i = 0; i < datas.length; i++){//所有人
+			 var list ="<li class='' data-icon='false' data-theme='d'> <a  href='#' data-ajax=\"false\" onclick='getJTXXByBh("+datas[i].BH+",\""+datas[i].BH+"\")'> <img  width='100px'  heigth='10px' src='http://210.73.88.55:28000/%E7%B3%BB%E7%BB%9F%E5%9B%BE%E7%89%87/111.png'>"+
+			 "<p class='ui-li-desc'>姓名："+datas[i].XM+"("+datas[i].BH+")</p> "+
+			 " <p class='ui-li-desc'>性别："+datas[i].XB+"&nbsp&nbsp&nbsp&nbsp年龄："+datas[i].NL+"&nbsp&nbsp&nbsp&nbsp刑期："+datas[i].XQ+"</p>"+
+			 "<p class='ui-li-desc'>家庭地址："+datas[i].HJZZ+"</p>"+
+			 "<p class='ui-li-desc'>犯罪类型："+datas[i].XAFLB+"&nbsp&nbsp&nbsp&nbsp罪名："+datas[i].ZM+"</p></a>";
+			
+
+
+			if(datasTBGZByJH.length != 0){//有关注的人
+			var a="";
+			var count=0;
+			for(var ii = 0; ii < datasTBGZByJH.length; ii++){//关注的人
+				
+				if(datas[i].BH==datasTBGZByJH[ii].bh){//如果是关注的人 则高亮显示
+					count++;
+					//a="<a href=\"#\" data-transition=\"pop\" data-icon=\"star\" id="+datas[i].BH+" data-theme=\"b\" onclick=\"setgz('"+datas[i].BH+"','"+datas[i].XM+"','"+datas[i].dbbm+"','"+datas[i].dw+"','"+datas[i].zr+"','"+datas[i].CSRQ+"','"+datas[i].ZM+"')\">关注</a> "
+	
+				}
+				
+				
+				
+			/*	else{//不是关注的人，则普通显示
+					
+					//a="<a href=\"#\" data-transition=\"pop\" data-icon=\"star\" id="+datas[i].BH+" data-theme=\"a\" onclick=\"setgz('"+datas[i].BH+"','"+datas[i].XM+"','"+datas[i].dbbm+"','"+datas[i].dw+"','"+datas[i].zr+"','"+datas[i].CSRQ+"','"+datas[i].ZM+"')\">ssss</a> "
+				}*/
+	
+			}//for
+			if(count>0)
+			{a="<a href=\"#\" data-transition=\"pop\" data-icon=\"star\" id="+datas[i].BH+" data-theme=\"b\" onclick=\"setgz('"+datas[i].BH+"','"+datas[i].XM+"','"+datas[i].dbbm+"','"+datas[i].dw+"','"+datas[i].zr+"','"+datas[i].CSRQ+"','"+datas[i].ZM+"')\">关注</a> ";
+			
+				}
+				
+			else{
+				a="<a href=\"#\" data-transition=\"pop\" data-icon=\"star\" id="+datas[i].BH+" data-theme=\"a\" onclick=\"setgz('"+datas[i].BH+"','"+datas[i].XM+"','"+datas[i].dbbm+"','"+datas[i].dw+"','"+datas[i].zr+"','"+datas[i].CSRQ+"','"+datas[i].ZM+"')\">ssss</a> ";
+				}	
+				
+				
+			list+=a;
+			
+			}else{
+					list +="<a href=\"#\" data-transition=\"pop\" data-icon=\"star\" id="+datas[i].BH+" data-theme=\"a\" onclick=\"setgz('"+datas[i].BH+"','"+datas[i].XM+"','"+datas[i].dbbm+"','"+datas[i].dw+"','"+datas[i].zr+"','"+datas[i].CSRQ+"','"+datas[i].ZM+"')\">关注</a> "
+			}
+			
+			
+
+
+
+
 		    
 				list +="</li>";
 				list =$(list);						
@@ -374,30 +457,7 @@ list +="<a href=\"#\" data-rel=\"dialog\" data-transition=\"pop\" data-icon=\"st
                 $('ul').listview('refresh');
                 $("#list").find("li:last").slideDown(300);
 
-	    tbgzdb.transaction(function(tx) {//没有实现的关注。。。。。。。。。。。。。。。。。。。。。。。。。。
-
-			  var sql = 'SELECT * FROM tbgztable';	
-			  tx.executeSql(sql, [],
-			  function(tx, result) {
-		alert(i+"function"+data[i].BH);
-				  for(var ii=0;ii < result.rows.length;ii++){
-					
-					  if(result.rows.item(ii)['bh']  == data[i].BH){
-						  alert("if");
-							$("#"+data[i].BH).attr("data-theme","d");	
-					  }else{
-							    
-					  }
-
-				  }//result  for
-			  })
-});
-	
-	
-	
-	
-	
-	
+	 
 					if(i>=9){//判断返回数据，如果是多余10条信息，第11条显示，由于数据太多情重新添加查询条件,下标是0
 						var list = $("<li><p style=\"font-size:14px;margin-top:5px; text-align:center; color:#F00; font-weight:700\">由于模糊查询返回数据信息太大，请添加详细查询信息！</p></li>");
 						$("#list").append(list).find("li:last").hide();
@@ -407,24 +467,17 @@ list +="<a href=\"#\" data-rel=\"dialog\" data-transition=\"pop\" data-icon=\"st
 					}
 			}
  			//	$("#list").find("li").remove();//不remove，会一直append li元素，没查询完成后，remove一次
-			  
-}
-//创建特别关注数据库
-function createTBGZSJK(){
- tbgzdb.transaction(function(tx) {	
-//  tx.executeSql("drop table tbgztable")
-	tx.executeSql("CREATE TABLE if not exists tbgztable (bh varchar, xm varchar , xb varchar ,nl varchar ,xq varchar, hjzz varchar, xaflb varchar ,zm varchar,createtiem REAL)");	
- });
-}
-//设置特别关注zf
-function setgz(bh,xm,xb,nl,xq,hjzz,xaflb,zm){
-	tbgzdb.transaction(function(tx) {
-		tx.executeSql("INSERT INTO tbgztable (bh,xm,xb,nl,xq,hjzz,xaflb,zm,createtiem) values(?,?,?,?,?,?,?,?,?)", [bh,xm,xb,nl,xq,hjzz,xaflb,zm,new Date().getTime()], null, null);
-	
-  });
 	
 	
+	
+	
+	for(var i = 0; i < datas.length; i++){
+			alert(datas[i].dw);
+		}
+	
 }
+
+
 //根据获取详细信息，传 bh,
 function getJTXXByBh(bh,bh1){
 		window.sessionStorage.setItem("bh",bh);//参数放到sessionStorage中，参数传递完毕后清空
@@ -508,7 +561,20 @@ if(splbhz === "离监就医"){
 //   		 });
 			
 }
+//跳转审批历史
+function jumpInfoSPPageLS(instid,splb){
+var splbhz=unescape(splb);//根据审批类别不同，跳转不同页面+"&splb="+splb  +"&splb="+splb
 
+var url='';	
+if(splbhz === "离监就医"){
+	url ="SPPageMBLS.html?instid="+instid;
+}else if(splbhz === "社会关系审核"){
+	url ="SPPageMBSHGXLS.html?instid="+instid;
+}else{// if("")
+	url ="LSCRZSPPageLS.html?instid="+instid;
+}
+window.location = url; //网页版能执
+}
 
 
 
@@ -852,12 +918,12 @@ function getljryinfobyguidCallBack(data){
 //--------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-//临时出入证，事由、带领干警和人数
-function  getLSCRZInfo(){
-var instid = unescape(getUrlParam("instid"));
-		$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataDecent?instid="+instid+"&callbackname=getLSCRZInfoCallBack&hid=864219020023223&sqlid=15&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});	
-}
 
+
+//临时出入证，事由、带领干警和人数
+function  getLSCRZDLGJSInfo(){
+		$.getScript(getServerIpAddress()+"/YZBGinterface/GetData?InstEsconrtID="+window.sessionStorage.getItem("InstEsconrtID")+"&callbackname=getLSCRZInfoCallBack&hid=864219020023223&sqlid=200&appid=21",function(response,status){})
+}
 
 function getLSCRZInfoCallBack(data){
 
@@ -868,15 +934,12 @@ var lscrzxinxilist='';
 
 <!--lijianxinxilist =" <table  border=\"1\" cellspacing=\"0\" cellpadding=\"0\"><tr> <th style=\"width:"+ljxxwidth+"px;\" scope=\"col\">计划离监时间</th> <th style=\"width:"+ljxxwidth+"px;\" scope=\"col\">计划返监时间</th></tr>";  -->
 
-lscrzxinxilist =" <table  border=\"1\" cellspacing=\"0\" cellpadding=\"0\">";
-
- for(var i = 0; i < data.length; i++){
+lscrzxinxilist =" <table class=\"gridtable\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\">";
 			
 //lijianxinxilist +="<tr><td>"+data[0].jhljtime+"</td><td>"+data[0].jhfjtime+"</td></tr>";
-lscrzxinxilist +="<tr><td>事由</td><td>"+data[0].jhljtime+"</td></tr><tr><td>带领干警</td><td>"+data[0].jhfjtime+"</td></tr><tr><td>人数</td><td>"+data[0].jhfjtime+"</td></tr>";
+lscrzxinxilist +="<tr><td style=\"width:100px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;\">日期</td><td colspan=\"3\" style=\"width:250px\">"+data[0].rq+"</td></tr><tr><td style=\"width:100px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;\">事由</td><td colspan=\"3\" style=\"width:250px\">"+data[0].lx+":"+data[0].sy+"</td></tr><tr><td style=\"width:100px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;\">带领干警</td><td>"+data[0].dlgj+"</td><td style=\"width:100px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;\">人数</td><td>"+data[0].rs+"</td></tr>";
 
 
-}//for
 
 
 	lscrzxinxilist +="</table> ";
@@ -885,9 +948,12 @@ lscrzxinxilist +="<tr><td>事由</td><td>"+data[0].jhljtime+"</td></tr><tr><td>�
 		
 $("#shiyouorganjingorrenshudivid").prepend(lscrzxinxilist);		
 
-//getspzfxx();//获取------zf信息
+getlscrzmds();//获取---临时出入证人员名单
 }
-
+//临时出入证名单
+function getlscrzmds(){
+		$.getScript(getServerIpAddress()+"/YZBGinterface/GetData?InstEsconrtID="+window.sessionStorage.getItem("InstEsconrtID")+"&callbackname=getlscrzmdscallback&hid=864219020023223&sqlid=200&appid=21",function(response,status){})
+}
 
 
 //-----------------------------------------------------------------------
@@ -910,19 +976,23 @@ $.getScript(getServerIpAddress()+"/YZBGinterface/UpdateData?instid="+instid+"&in
 }//result
 function getSPJGResult(data){//获取实例的状态
 var instid =getUrlParam("instid");
-	if(data[0].result ==="Succss"){
-			$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataDecent?instid="+instid+"&callbackname=getinststatebyinstid&hid=864219020023223&sqlid=30&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});	
-	}
+
+			$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataDecent?instid="+instid+"&callbackname=getinststatebyinstid&hid=864219020023223&sqlid=30&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});	//function(response,status)
+
 }
 
 function getinststatebyinstid(data){
 			$.getScript(getServerIpAddress()+"/YZBGinterface/UpdateDataQT?instesconrtid="+window.sessionStorage.getItem("InstEsconrtID")+"&inststate="+data[0].inststate+"&spjg="+escape(escape("同意"))+"&callbackname=getSPJGResultSJ&hid=864219020023223&sqlid=25&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});		
 }
 //跟改 省局库的放回
-function getSPJGResultSJ(data){
-	if(data[0].result ==="Succss"){
+function getSPJGResultSJ(data){	
+		var instid =getUrlParam("instid");//临时表  下一条
+					$.getScript(getServerIpAddress()+"/YZBGinterface/InsertDataDServlet?&instactid="+window.sessionStorage.getItem("instactid")+"&instid="+instid+"&callbackname=getLSBXYG&hid=864219020023223&sqlid=305&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});	
+		
+}
+//
+function getLSBXYG(data){
 		alert("审批成功！");
-	}
 		jumpInfoPage("SPLieBiao.html");	
 }
 
@@ -936,15 +1006,23 @@ var spzjslectJh =$("#spzjselectId").find("option:selected").val();//转交给的
 var spzjslectXm =$("#spzjselectId").find("option:selected").text();//转交给的xm
 var instactid = window.sessionStorage.getItem("instactid");
 
-$.getScript(getServerIpAddress()+"/YZBGinterface/UpdateData?jh="+spzjslectJh+"&xm="+escape(escape(spzjslectXm))+"&instactid="+instactid+"&callbackname=spzjbuttoncallback&hid=864219020023223&sqlid=905&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});
+$.getScript(getServerIpAddress()+"/YZBGinterface/UpdateData?jh="+spzjslectJh+"&xm="+escape(escape(spzjslectXm))+"&instactid="+instactid+"&callbackname=spzjbuttoncallback&hid=864219020023223&sqlid=905&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});//function(response,status)
 	
 }
 //转交回调
 function spzjbuttoncallback(data){
-	if(data[0].result ==="Succss"){
-		alert("转交成功！");
+	if(data[0].result =="Succss"){
+			
+		$.getScript(getServerIpAddress()+"/YZBGinterface/UpdateData?jh="+spzjslectJh+"&xm="+escape(escape(spzjslectXm))+"&instactid="+instactid+"&callbackname=updatezhuanjiaohouupdatexiaoxibiao&hid=864219020023223&sqlid=307&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});
+	
+	}else{
+		alert("转交失败！");
+	}
+
 }
-jumpInfoPage("SPLieBiao.html");	
+function updatezhuanjiaohouupdatexiaoxibiao(){
+		alert("转交成功！");
+	jumpInfoPage("SPLieBiao.html");		
 }
 
 //离监就医--不同意
@@ -961,10 +1039,10 @@ $.getScript(getServerIpAddress()+"/YZBGinterface/UpdateData?instid="+instid+"&in
 }
 function btytjcallback(data){//获取实例的状态
 var instid =getUrlParam("instid");
-		if(data[0].result === "Succss"){
+
 		$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataDecent?instid="+instid+"&callbackname=getinststatebyinstidBTY&hid=864219020023223&sqlid=30&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});	
 			
-		}	
+
 	
 }
 function getinststatebyinstidBTY(data){
@@ -1004,9 +1082,9 @@ $.getScript(getServerIpAddress()+"/YZBGinterface/UpdateData?instid="+instid+"&in
 
 function getSHGXTYSPCallBack(data){//获取实例的状态
 var instid =getUrlParam("instid");
-	if(data[0].result ==="Succss"){
+
 			$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataDecent?instid="+instid+"&callbackname=getinststatebyinstidTY&hid=864219020023223&sqlid=30&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});	
-	}
+
 }
 
 function getinststatebyinstidTY(data){
@@ -1023,10 +1101,13 @@ if($("#yxqqdh").is(':checked')){
 			$.getScript(getServerIpAddress()+"/YZBGinterface/UpdateDataQT?instesconrtid="+window.sessionStorage.getItem("InstEsconrtID")+"&inststate="+data[0].inststate+"&shgxspjg=1&hj="+hj+"+&qqdh="+qqdh+"&callbackname=getSHSPSPJGResult&hid=864219020023223&sqlid=110&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});		
 }
 function getSHSPSPJGResult(data){
-	if(data[0].result ==="Succss"){
+
+		var instid =getUrlParam("instid");//临时表  下一条
+					$.getScript(getServerIpAddress()+"/YZBGinterface/InsertDataDServlet?&instactid="+window.sessionStorage.getItem("instactid")+"&instid="+instid+"&callbackname=getlscrzsplinshibiaocallback&hid=864219020023223&sqlid=305&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});	
+		
+}
+//
+function getlscrzsplinshibiaocallback(data){
 		alert("审批成功！");
-	}
 		jumpInfoPage("SPLieBiao.html");	
 }
-
-

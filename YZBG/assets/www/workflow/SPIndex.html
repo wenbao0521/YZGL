@@ -29,6 +29,26 @@
 		getSJSYRInfo();//获取手机使用人信息，每开一次程序，重新获取一次
 
  })
+function jumpActivity(){
+	
+	document.addEventListener("deviceready", onDeviceReady, false);	
+	
+}
+	function onDeviceReady() {
+		//PhoneGap.exec(successFunction, failFunction, "MyPlugin","echo",["a","b"]);
+		PhoneGap.exec(successFunction, failFunction, "JBSZPlugin","",[""]);
+	}
+	
+	function successFunction(e){
+/*		$("#searchid").val(e);
+		$("#searchid").focus();*/
+alert(e);		
+	}
+	function failFunction(e){
+		alert("fail:"+e);
+		return;
+	}
+
 
 </script>
 
@@ -86,13 +106,13 @@
         </li>
         
         <li data-icon="false" style="height:75px;">
-        		<a href="#"><img src="../images/font-355.png" width="70px" height="70px">
+        		<a href="#" onclick="jumpActivity()"><img src="../images/font-355.png" width="70px" height="70px">
                 	<h3 style="margin-top:10px; margin-left:-20px; font-size:25px">基本设置</h3>
                 </a>
          </li>
         
         <li data-icon="false" style="height:75px;">
-        	<a href="#"><img src="../images/bz.png" width="50px" height="50px" style="margin-left:12px; margin-top:12px">
+        	<a href="#" onclick="jumpInfoPage('help.html')"><img src="../images/bz.png" width="50px" height="50px" style="margin-left:12px; margin-top:12px">
             	<h3 style="margin-top:10px; margin-left:-20px; font-size:25px">帮助</h3>
             </a>
         </li>

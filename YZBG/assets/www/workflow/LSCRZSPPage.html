@@ -1,63 +1,116 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html><head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta http-equiv="Access-Control-Allow-Origin" content="*">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
 <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
-	<style>
-    .labelclass{width:120px; border:0; text-align:right; font-size:16px;font-weight:900;}
-	.labelnrclass{ border:0; text-align:left;}
-    </style>
-    <style>
-table tr{
-    height:25px;
-    line-height:25px;
+<style>
+.labelclass {
+	width: 120px;
+	border: 0;
+	text-align: right;
+	font-size: 16px;
+	font-weight: 900;
+}
+.labelnrclass {
+	border: 0;
+	text-align: left;
 }
 </style>
-    
-		<link rel="stylesheet" href="../css/jquery.mobile-1.3.2.min.css">
-        
-        <script type="text/javascript" charset="utf-8" src="../cordova-2.0.0.js"></script>      
-		<script type="text/javascript" src="../js/jquery.js"></script>    
-		<script type="text/javascript" src="../js/jquery.mobile-1.3.2.min.js"></script>
+<style>
+table tr {
+	height: 35px;
+	line-height: 35px;
+}
+.tdfont {
+	font-weight: 900
+}
 
+.shsptdlableduan{
+	width:55px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;
+}
+.shsptdvalueduan{
+width:75px;
+}
+.shsptdlablechang{
+width:55px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;
+}
+.shsptdvaluechang{
 
-   		<script type="text/javascript" src="../js/all.js"></script>
-        <script language='javascript' src='../js/serverIp.js' ></script>
-		<title>主页</title>
+}
 
+body {
+	text-shadow: 0 0px 0 #FFF
+}
+table.gridtable {
+	font-family: verdana, arial, sans-serif;
+	font-size: 11px;
+	color: #333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table.gridtable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #3F73A4;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#3F73A4), to(#5995BF));
+	background-color: #5995BF;
+	font-size: 16px;
+	color: #FFF;
+	text-shadow: 0 0px 0 #FFF;
+}
+table.gridtable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #3F73A4;
+	background-color: #ffffff;
+	font-size: 16px
+}
+.lablexs {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+	font-size: 16px
+}
+</style>
+<link rel="stylesheet" href="../css/jquery.mobile-1.3.2.min.css">
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" charset="utf-8" src="../cordova-2.0.0.js"></script>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jquery.mobile-1.3.2.min.js"></script>
+<script type="text/javascript" src="../js/all.js"></script>
+<script language='javascript' src='../js/serverIp.js' ></script>
+<title>主页</title>
+<script language="JavaScript">
+window.history.forward(1);
+</script>
 <script type="text/javascript">
  $(document).ready(function(){
-	 getLSCRZInfo();//获取审批意见信息
+/*	 $('#textareaid').click(function(){
+	alert($('#textareaid').val().replace(/^\s+|\s+$/g,""));
+});*/
+	 
+$('#textareaid').blur(function(){
+	if($('#textareaid').val().replace(/^\s+|\s+$/g,"") ===""){
+		$('#textareaid').val('请输入不同意理由，不要操过15个汉字！');
+	}
+});
+ $('#textareaid').focus(function(){
+	if($('#textareaid').val().replace(/^\s+|\s+$/g,"") == "请输入不同意理由，不要操过15个汉字！"){
+		$('#textareaid').val('不同意此审批!');
+	}
+});
+ 
+//	 getSpyjInfo();//获取审批意见信息
 //	selectOnchangeVal();
  })
-//审批界面，选择审批结果
-function selectOnchangeVal(){
 
-/*	var t = document.getElementById("selectId"); 
-	alert(t.options[t.selectedIndex].text);//js 获取select 值
-*/
-
-//	alert($("#selectId").find("option:selected").text());//jquery 获取select值
-var selectVal =$("#selectId").find("option:selected").val();
-	if(selectVal != 'xianshi'){
-	
-		switch(selectVal){
-		case 'ty':
-$("#spjgTYhideaid").click();
-		  break;
-		case 'bty':
-$("#spjgBTYhideaid").click();	
-		  break;
-		case 'zj':
-		
-		break;
-		default:
-		
-		}
-	}//if
-
-}//selectOnchangeVal
 
 </script>
 <script type="application/javascript">
@@ -67,195 +120,214 @@ function dtjztyzjr(){//动态加载同意转交人信息
 	var list = $(" <option value=\"zj\">转交</option>");
 	$("#sptyselectId").append(list);
 }
-//审批同意，同意按钮
-function sptybutton(){
-var tyzjrselectVal =$("#sptyselectId").find("option:selected").val();//审批结果同意转交人信息
-	
-}
+
 </script>
+<script type="application/javascript">
+//审批意见
+var instid = getUrlParam("instid");
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataDecent?instid="+instid+"&callbackname=getlxcrzbcallback&hid=864219020023223&sqlid=15&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});	
 
-</head>	
+</script>
+</head>
 <body>
-<a href="#spjgBTYpage" data-rel="dialog" id="spjgBTYhideaid"></a><!--onclick="getzrgninfobyguid('11')"-->
-<a href="#spjgTYpage" data-rel="dialog" id="spjgTYhideaid"></a><!--onclick="getzrgninfobyguid('11')"-->
 
-<div data-role="page" id="pageone" data-theme="b">
-  <div data-role="header" data-position="fixed">
-     <a href="#" onclick="jumpInfoPage('SPLieBiao.html')"><img src="../images/fh3.png" width="30" height="19" /></a>
+<div data-role="page" id="pageone" data-theme="b" style="color:#4073A5">
+  <div data-role="header" data-position="fixed"> 
+    <!--     <a href="#" onclick="jumpInfoPage('SPLieBiao.html')"><img src="../images/fh3.png" width="30" height="19" /></a> 返回图片按钮-->
     <h1>审批信息</h1>
-    	<div style="float:right; margin-top:-45px">
-     		 <fieldset data-role="controlgroup" data-type="horizontal">
-              <select name="selectId" id="selectId" onchange="selectOnchangeVal()">
-              <option value="xianshi">选择操作结果</option>
-              <option value="ty">同意</option>
-              <option value="bty">不同意</option>
-              <option value="zj">转交</option>
-            </select>
-         </fieldset>
-		</div>
-  </div>
-
-<div data-role="content" style="text-align:center">
-<h2 style=" font-weight:900" id="SPTitleId"></h2>
-
-
-<!--        出入证事由、带领干警、和人数-->
+    <a href="#" data-role="button" data-icon="home" onclick="jumpInfoPage('SPIndex.html')">首页</a> </div>
+  <div data-role="content" style="text-align:center; background-color: #B5DAFF;" >
+    <h2 style=" font-weight:900" id="SPTitleId">临时出入证审批</h2>
+    
+    
+    
+    
+    <!--        出入证事由、带领干警、和人数-->
         <div id="shiyouorganjingorrenshudivid" >
     		
        </div>
-<!--        离去临时出入证人员名单-->
-		<label>领取临时出入证人员名单</label>
-       <div id="lscrzmddivid" >
-			
+<!--        离去临时出入证人员名单--------------出入证号-->
+	<label>领取临时出入证人员名单</label>
+       <div id="lscrzmdsdivid" >
        </div>
-   
-   
-   
-   
-</div><!--content-->
-  <div data-role="footer" data-position="fixed">
-  <h1>更新于  <span id="sppagegxyid"></span></h1>
-  </div>
-</div> 
+    <script id="lscrzmdsscriptid" type="text/html">
+<table class="gridtable" border="1" cellspacing="0" cellpadding="0"><tr> <th style="width:116.66px;" scope="col">姓名</th> <th scope="col" style="width:116.66px;">性别</th><th scope="col" style="width:116.66px">证件类型</th></tr>
+    {{each  as value i}}
+				<tr><td style="text-align:center"><a href="#lscrzpage" data-rel="dialog" onclick="getlscrzjtinfo('{{value.xm}}','{{value.xb}}','{{value.zjlx}}','{{value.zjhm}}','{{value.cph}}')"> {{value.xm}}</a></td><td>{{value.xb}}</td><td style="text-align:center">{{value.zjlx}}</tr>
+    {{/each}}
+</table>
+</script> 
+  <script>
+function getlscrzmdscallback(data){
 
+var html = template('lscrzmdsscriptid', data);
+document.getElementById('lscrzmdsdivid').innerHTML = html;
+//$("#spyj").text("审批意见");	
+
+}
+</script>
+
+
+       
+       
+       
+       
+       
+    <!--        审批意见-->
+    <label id="spyj"></label>
+    <div id="spyjxinxidivid" > </div>
+    <script id="spyjxinxi" type="text/html">
+<table class="gridtable"  border="1" cellspacing="0" cellpadding="0">
+    {{each  as value i}}
+<tr> <td class="tdfont" style="width:150px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;">{{value.actname}}</td><td style="width:200px;text-align:left">{{value.instactstatedesc}} {{value.instactopername}} <p style=" float:right">{{value.instactactiontime}} </p> </td> </tr>
+    {{/each}}
+</table>
+</script> 
+    <script>
+function getlxcrzbcallback(data){
+window.sessionStorage.setItem("InstEsconrtID",data[0].InstEsconrtID);
+  for(var i = 0; i < data.length; i++){//先把以后要的数据 取出来
+if(data[i].instactopersiren === window.localStorage.getItem("jh")){
+	window.sessionStorage.setItem("instactid",data[i].instactid);
+
+//1.只有确认按钮，转交2是审批环节同意和不同意，转交
+	if(data[i].actrule === "1"){
+		$("#qrid").text("确认");
+		$("#qrdivid").show();
+	}else if(data[i].actrule === "2"){
+		$("#tyaid").text("同意");
+		$("#btyaid").text("不同意");		
+		
+		$("#spdivid").show();
+
+	}
+	var instactoperuserranges=data[i].instactoperuserrange.data;
+		for(var ii = 0; ii < instactoperuserranges.length; ii++){//在获取审批类表的同时，把可以转交的人的信息，放到select中
+			var zjlist = $(" <option value=\""+instactoperuserranges[ii].jh+"\">"+instactoperuserranges[ii].xm+"</option>");
+			$("#spzjselectId").append(zjlist);		
+		}
+}
+}
+
+var html = template('spyjxinxi', data);
+document.getElementById('spyjxinxidivid').innerHTML = html;
+$("#spyj").text("审批意见");	
+
+
+getLSCRZDLGJSInfo()//带领干警
+}
+
+//根据实例id获取，社会关系审批id
+function getshgxidbyinstid(data){
+window.sessionStorage.setItem("instesconrtid",data[0].instesconrtid);
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetData?instesconrtid="+data[0].instesconrtid+"&callbackname=getspgxzfxxcallback&hid=864219020023223&sqlid=102&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});
+}
+</script> 
+  </div>
+  <!--content--> 
+  
+  <!--  确定、同意、不同意、转交-->
+  
+  <div align="center" style="display: none;background-color: #B5DAFF;" id="qrdivid" > <a href="#shgxsptydiv" data-role="button" data-rel="dialog" data-inline="true" style="width:90px" onclick="spjgtyorqr()"><span id="qrid"></span></a> <a href="#zjpage" data-role="button" data-rel="dialog" data-inline="true" style="width:90px"><span id="zjaid">转交</span></a> </div>
+  
+  <div align="center" style="display: none;background-color: #B5DAFF;" id="spdivid"> <a href="#" data-role="button" data-inline="true" style="width:90px" onclick="spjgtyorqr()"><span id="tyaid"></span></a> <a href="#spjgBTYpage" data-role="button" data-rel="dialog" data-inline="true" style="width:90px"><span id="btyaid"></span></a> <a href="#zjpage" data-role="button" data-rel="dialog" data-inline="true" style="width:90px"><span id="zjaid">转交</span></a> </div>
+</div>
 </div>
 
-
-
-
-
-
-
-
-<!------------------------------zf信息-->
-<div data-role="page" id="ljrypage" style="padding-top:100px" data-close-btn="right">
+<!--------临时出入证 个人 具体信息-->
+<div data-role="page" id="lscrzpage" style="padding-top:100px" data-close-btn="right">
   <div data-role="header">
-    <h1>离监人员信息</h1>
+    <h1>个人具体信息</h1>
   </div>
-
   <div data-role="content" align="center">
-
-  <table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="labelclass" scope="col">姓名：</td>
-    <td class="labelnrclass" scope="col"><span id="ljryinfo_xm"></span></td>
-  </tr>
-  <tr>
-    <td class="labelclass">性别：</td>
-    <td class="labelnrclass"><span id="ljryinfo_xb"></span></td>
-  </tr>
-  <tr>
-    <td class="labelclass">出生日期：</td>
-    <td class="labelnrclass"><span id="ljryinfo_csrq"></span></td>
-  </tr>
-  <tr>
-    <td class="labelclass">案情：</td>
-    <td class="labelnrclass"><span id="ljryinfo_an"></span></td>
-  </tr>
-  <tr>
-    <td class="labelclass">刑期：</td>
-    <td class="labelnrclass"><span id="ljryinfo_xq"></span></td>
-  </tr>
-  <tr>
-    <td class="labelclass">刑期起止日：</td>
-    <td class="labelnrclass"><span id="ljryinfo_xqqzr"></span></td>
-  </tr>
-  <tr>
-    <td class="labelclass">家庭住址：</td>
-    <td class="labelnrclass"><span id="ljryinfo_jtzz"></span></td>
-  </tr>
-    <tr>
-  <td class="labelclass">罪犯类别：</td>
-    <td class="labelnrclass"><span id="ljryinfo_zflb"></span></td>
-  </tr>
-</table>
-
-
-        	     
-
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="labelclass" scope="col">姓名：</td>
+        <td class="labelnrclass" scope="col"><span id="lscrzinfo_xm"></span></td>
+      </tr>
+      <tr>
+        <td class="labelclass">性别：</td>
+        <td class="labelnrclass"><span id="lscrzinfo_xb"></span></td>
+      </tr>
+      <tr>
+        <td class="labelclass">证件类型：</td>
+        <td class="labelnrclass"><span id="info_zjlx"></span></td>
+      </tr>
+      <tr>
+        <td class="labelclass">证件号码：</td>
+        <td class="labelnrclass"><span id="lscrzinfo_zjhm"></span></td>
+      </tr>
+      <tr>
+        <td class="labelclass">车牌号：</td>
+        <td class="labelnrclass"><span id="lscrzinfo_cph"></span></td>
+      </tr>
+   
+    </table>
   </div>
-
   <div data-role="footer">
- 	 <h1></h1>
+    <h1></h1>
   </div>
-</div> 
-
-
-
+</div>
 
 <!--审批结果界面-->
 <div data-role="page" id="spjgBTYpage" style="padding-top:100px" data-close-btn="right">
   <div data-role="header">
     <h1>审批操作</h1>
   </div>
-
   <div data-role="content" align="center">
- <table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td style=" font-weight:900">理由：</td>
-    <td><textarea style="height:80px"></textarea></td>
-  </tr>
-  
-    <tr>
-    <td></td>
-    <td align="right" style="margin-right:20px"><a href="#" data-role="button" data-theme="b" onclick="test()" style="width:50%" >不同意</a></td>
-  </tr>
- </table>
-
- 
-        	     
-
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td style=" font-weight:900">不同意理由：</td>
+        <td><textarea style="height:80px" maxlength="15" id="textareaid">请输入不同意理由，不要操过15个汉字！</textarea></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td align="right" style="margin-right:20px"><a href="#" data-role="button" data-theme="b" onclick="btytj()" style="width:50%" >提交</a></td>
+      </tr>
+    </table>
   </div>
-
   <div data-role="footer">
- 	 <h1></h1>
+    <h1></h1>
   </div>
-</div> 
+</div>
 
-
-<!--审批同意-->
-<div data-role="page" id="spjgTYpage" style="padding-top:100px" data-close-btn="right">
+<!--zhuanjiao 转交-->
+<div data-role="page" id="zjpage" style="padding-top:100px" data-close-btn="right">
   <div data-role="header">
     <h1>审批操作</h1>
   </div>
-
   <div data-role="content" align="center">
- <table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td style=" font-weight:900">转交人：</td>
-    <td>
-    		 <fieldset data-role="controlgroup" data-type="horizontal">
-              <select name="sptyselectId" id="sptyselectId">
-            
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td style=" font-weight:900">转交给：</td>
+        <td><fieldset data-role="controlgroup" data-type="horizontal">
+            <select name="spzjselectId" id="spzjselectId">
             </select>
-         </fieldset>
-    </td>
-  </tr>
-  
-    <tr>
-    <td></td>
-    <td align="right" style="margin-right:20px"><a href="#" data-role="button" data-theme="b" onclick="sptybutton()" >同意</a></td>
-  </tr>
- </table>
-
- 
-        	     
-
+          </fieldset></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td align="right" style="margin-right:20px"><a href="#" data-role="button" data-theme="b" onclick="spzjbutton()" >提交</a></td>
+      </tr>
+    </table>
   </div>
-
   <div data-role="footer">
- 	 <h1></h1>
+    <h1></h1>
   </div>
-</div> 
+</div>
 
 
 
-
-
-
-
+<script type="application/javascript">
+//临时出入证人员，具体呢信息，---一个人
+function getlscrzjtinfo(xm,xb,zjlx,zjhm,cph){
+     $("#lscrzinfo_xm").text(xm);
+	 $("#lscrzinfo_xb").text(xb);
+	 $("#info_zjlx").text(zjlx);
+	 $("#lscrzinfo_zjhm").text(zjhm);
+	 $("#lscrzinfo_cph").text(cph);	 
+	
+	}
+</script>
 </body>
 </html>
-    
-
-

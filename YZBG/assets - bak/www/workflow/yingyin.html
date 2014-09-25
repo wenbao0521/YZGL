@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../js/template.js"></script>
+
+		<link rel="stylesheet" href="../css/jquery.mobile-1.3.2.min.css">
+        
+        <script type="text/javascript" charset="utf-8" src="../cordova-2.0.0.js"></script>      
+		<script type="text/javascript" src="../js/jquery.js"></script>    
+		<script type="text/javascript" src="../js/jquery.mobile-1.3.2.min.js"></script>
+
+   		<script type="text/javascript" src="../js/all.js"></script>
+        <script language='javascript' src='../js/serverIp.js' ></script>
+
+
+<script type="application/javascript">
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataDecent?jh="+window.localStorage.getItem("jh")+"&callbackname=callbacklll&hid=864219020023223&sqlid=14&appid=11",function(response,status){/*alert(response+"--funciton--"+status);*/});	
+
+
+</script>
+<title>无标题文档</title>
+</head>
+
+<body>
+
+<div id="content"></div>
+
+
+
+
+<script id="test" type="text/html">
+
+
+
+<h1>z这是例子</h1>
+<ul>
+    {{each  as value i}}
+
+		<li>
+		
+			<a href=\"#\" onclick=\"jumpInfoSPPage('"+{{value.instid}}+"','"+escape({{value.splb}})+"')\"><p style=\"font-weight:800; font-size:16px; margin-top:5px\">"+{{value.splb}}+"</p><p><span>"+{{value.instdesc}}+"</span><span style=\"float:right;\">"+{{value.gshtime}+"</span></p> <p style=\"margin-top:5px; color:red;\">未审批</p> </a>
+			
+		</li>
+    {{/each}}
+</ul>
+
+</script>
+
+<script>
+
+function callbacklll(data){
+alert(data[0].gshtime+"<--data.length-->"+data.length);
+
+//var data = {
+//	title: '基本例子',
+//	isAdmin: true,
+//	list: ['文艺', '博客', '摄影', '电影', '民谣', '旅行', '吉他']
+//};
+//var l={};
+//l.d=data;
+var html = template('test', data);
+document.getElementById('content').innerHTML = html;
+
+
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

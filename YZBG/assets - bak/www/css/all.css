@@ -1,0 +1,79 @@
+/* CSS Document */
+.caipinleibiedivzhuanyongclass{
+display: none;	
+}
+
+
+
+.bg{
+	background-color:#191844;
+	text-align:center;
+	height:100%;
+	width:100%;
+
+	}
+
+
+
+body{font-size:12px}
+#container { width:720px; padding:0; margin:0 auto; height:100px;}
+#leftDiv { width:110px; float:left; text-align:center; line-height:15px; height:110px;}
+#rightDiv { width:600px; float:right; text-align:center; line-height:15px; height:110px;}
+.zdzftoucss{text-align:left;color:#F00;font-weight:900; font-size:16px}/*和sql语句写死了，最好不要更改名字----重点罪犯样式*/
+.ptzftoucss{text-align:left;font-weight:900; font-size:16px}/*和sql语句写死了，最好不要更改名字---普通罪样式*/
+.zdzfweicss{text-align:left;color:#F00;}/*和sql语句写死了，最好不要更改名字----重点罪犯样式*/
+.ptzfweicss{text-align:left;}/*和sql语句写死了，最好不要更改名字---普通罪样式*/
+
+#containerxx {width: 100%;} 
+#photo {float: left; width:140px;} 
+#photoleft {float: left;text-align:left;margin-left:20px}/*在all.js中设置此宽度*/
+#photodown{float: left; width:100%;margin-top:5px} 
+#photodown1{float: left; width:100%;} 
+.pxinshi{border:solid; width:200px; text-align:right;display:inline;}
+.phoutaicaozuoxinshi{display:inline;}
+.ppp{text-align:right; width:100px}
+
+
+.ui-bar-g { 
+   border: 1px solid #FFF;
+   background:#006600; 
+   color:#FFF; 
+   font-weight: bold; 
+   text-shadow: 0 -1px 1px #000000; 
+   background-image: -moz-linear-gradient(top, #058905, #006600); 
+   background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#058905),color-stop(1,#058905));
+   /*background:url(images/m_i_4.png)  no-repeat*/
+}
+
+
+
+
+
+
+  *{
+	margin:0px;
+	padding:0px;
+	font:12px/2 微软雅黑;
+}
+#caipinxianshi{
+	width:746px;
+	margin:2px auto;
+}
+.items{
+	width:225px;
+	border:1px solid #dcdcdc;
+	overflow:hidden;
+	float:left;
+	margin:0px 10px 0 0;
+	background-color:#fff;
+}
+.items .img{
+	height:300px;
+	overflow:hidden;
+	position:relative;
+}
+
+.items .title{
+	border-top:1px solid #dcdcdc;
+	padding:7px 5px;
+}

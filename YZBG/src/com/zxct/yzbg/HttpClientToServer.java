@@ -102,6 +102,9 @@ public class HttpClientToServer {
 	
 	
 	public JSONArray doPostParams(String jh){
+		JSONArray arr = new JSONArray();
+		
+		
 		//String getUrl = urlAddress + "?username="+username+"&password="+password;
 		String doPostParamsurlAddress="http://192.168.0.18:8080/YZBGinterface/AndroidGetDataDecent?hid=864219020023223&&sqlid=300&appid=11&jh="+jh;
 		HttpPost httpPost = new HttpPost(doPostParamsurlAddress);
@@ -136,7 +139,7 @@ System.out.println("doPostParams-->"+jh);
 				br.close();
 				
 
-				JSONArray arr = new JSONArray(response);  
+				arr = new JSONArray(response);  
 				System.out.println(arr.length()+"arr111");
 //				JSONObject jsonObj = (JSONObject) arr.get(0);  
 						
@@ -145,12 +148,12 @@ System.out.println("doPostParams-->"+jh);
 				return arr;
 				
 			}else{
-				return null;
+				return arr;
 			}
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
+			return arr;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -159,6 +162,71 @@ System.out.println("doPostParams-->"+jh);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return arr;
+	}
+
+//收到消息后，更改临时表的状态
+	public void updateData(String guid) {
+	
+		//String getUrl = urlAddress + "?username="+username+"&password="+password;
+		String doPostParamsurlAddress="http://192.168.0.18:8080/YZBGinterface/UpdateData?hid=864219020023223&&sqlid=303&appid=11&guid="+guid;
+		HttpPost httpPost = new HttpPost(doPostParamsurlAddress);
+System.out.println("doPostParams-->"+guid);		
+		List params = new ArrayList();
+//		NameValuePair pair1 = new BasicNameValuePair("jh", jh);
+//		params.add(pair1);
+		
+		HttpEntity he;
+		try {
+			he = new UrlEncodedFormEntity(params, "gbk");
+			httpPost.setEntity(he);
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		
+		
+		HttpClient hc = new DefaultHttpClient();
+		try {
+			HttpResponse ht = hc.execute(httpPost);
+			if(ht.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
+				HttpEntity het = ht.getEntity();
+				InputStream is = het.getContent();
+				BufferedReader br = new BufferedReader(new InputStreamReader(is));
+				String response = "";
+				String readLine = null;
+				while((readLine =br.readLine()) != null){
+					response = response + readLine;
+				}
+				is.close();
+				br.close();
+				
+
+				JSONArray arr = new JSONArray(response);  
+				System.out.println(arr.length()+"updateData");
+//				JSONObject jsonObj = (JSONObject) arr.get(0);  
+						
+
+			}else{
+				
+			}
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
 	}
 }

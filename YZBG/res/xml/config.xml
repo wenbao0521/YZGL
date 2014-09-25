@@ -53,6 +53,8 @@
     
     <plugin name="StatusBarNotification" value="com.zxct.yzbg.StatusBarNotification"/>
     
+    <plugin name="JBSZPlugin" value="com.zxct.yzbg.JBSZPlugin"/>
+    
     
 </plugins>
 </cordova>

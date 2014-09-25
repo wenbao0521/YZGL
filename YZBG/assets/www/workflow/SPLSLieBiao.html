@@ -16,9 +16,31 @@
 
 <script type="text/javascript">
  $(document).ready(function(){ 
-		getSPLieBiaoByIMEIAndJH();
+ getSJSYRInfo();
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataDecent?jh="+window.localStorage.getItem("jh")+"&callbackname=getSPLSLieBiaoCallBack&hid=864219020023223&sqlid=500&appid=11",function(response,status){/*alert(response+"--funciton--"+status);*/});	
  })
 
+
+//审批列表回调instactid
+function getSPLSLieBiaoCallBack(data){
+//	alert(data.length+"data.length");
+$("#spliebiaogxyid").text(data[0].gxy);
+
+	$("#list").find("li").remove();//先删除以前的数据+"&splb="+escape(data[i].splb)		instcreatetime 根式为120的时间
+			  for(var i = 0; i < data.length; i++){
+			 var list = $( "<li> <a href=\"#\" onclick=\"jumpInfoSPPageLS('"+data[i].instid+"','"+escape(data[i].splb)+"')\"><p style=\"font-weight:800; font-size:16px; margin-top:5px\">"+data[i].splb+"</p><p><span>"+data[i].instdesc+"</span><span style=\"float:right;\">"+data[i].gshtime+"</span></p> </a></li>"
+
+				);			
+					
+			    $("#list").append(list).find("li:last").hide();
+                $('ul').listview('refresh');
+                $("#list").find("li:last").slideDown(300);
+	
+				
+			}
+
+}
+	
 </script>
 
 </head>	
@@ -27,8 +49,8 @@
 <div data-role="page" id="pageone" data-theme="b">
   <div data-role="header" data-position="fixed">
     <!-- <a href="#" data-role="button"  data-icon="back" data-rel="back" data-iconpos="notext" class="ui-btn-left">后退</a>-->
-     <a href="#" onclick="jumpInfoPage('SPIndex.html')"><img src="../images/fh3.png" width="30" height="19" /></a>
-    <h1>审批列表</h1>
+     <a href="#" data-role="button" data-icon="home" onclick="jumpInfoPage('SPIndex.html')">首页</a>
+    <h1>审批历史列表</h1>
   </div>
 
   <div data-role="content">

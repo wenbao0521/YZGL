@@ -1,0 +1,567 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta http-equiv="Access-Control-Allow-Origin" content="*">
+<!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+	<style>
+    .labelclass{width:120px; border:0; text-align:right; font-size:16px;font-weight:900;}
+	.labelnrclass{ border:0; text-align:left;}
+    </style>
+    <style>
+table tr{
+    height:35px;
+    line-height:35px;
+}
+.tdfont{ font-weight:900}
+body{text-shadow:0 0px 0 #FFF}
+
+
+table.gridtable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table.gridtable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #3F73A4;
+	background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));
+	background-color: #5995BF;
+	font-size:16px;
+	color:#FFF;
+	text-shadow:0 0px 0 #FFF;
+ 
+}
+table.gridtable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #3F73A4;
+	background-color: #ffffff;
+	font-size:16px
+}
+.lablexs{
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+	font-size:16px
+}
+</style>
+    
+		<link rel="stylesheet" href="../css/jquery.mobile-1.3.2.min.css">
+        
+        <script type="text/javascript" src="../js/template.js"></script>
+        <script type="text/javascript" charset="utf-8" src="../cordova-2.0.0.js"></script>      
+		<script type="text/javascript" src="../js/jquery.js"></script>    
+		<script type="text/javascript" src="../js/jquery.mobile-1.3.2.min.js"></script>
+
+
+   		<script type="text/javascript" src="../js/all.js"></script>
+        <script language='javascript' src='../js/serverIp.js' ></script>
+		<title>主页</title>
+<script language="JavaScript">
+         javascript:window.history.forward(1);
+</script>
+<script type="text/javascript">
+ $(document).ready(function(){
+	 
+/*	 $('#textareaid').click(function(){
+	alert($('#textareaid').val().replace(/^\s+|\s+$/g,""));
+});*/
+	 
+$('#textareaid').blur(function(){
+	if($('#textareaid').val().replace(/^\s+|\s+$/g,"") ===""){
+		$('#textareaid').val('请输入不同意理由，不要操过15个汉字！');
+	}
+});
+ $('#textareaid').focus(function(){
+	if($('#textareaid').val().replace(/^\s+|\s+$/g,"") == "请输入不同意理由，不要操过15个汉字！"){
+		$('#textareaid').val('不同意此审批!');
+	}
+});
+ 
+//	 getSpyjInfo();//获取审批意见信息
+//	selectOnchangeVal();
+ })
+//审批界面，选择审批结果
+function selectOnchangeVal(){
+
+/*	var t = document.getElementById("selectId"); 
+	alert(t.options[t.selectedIndex].text);//js 获取select 值
+*/
+
+//	alert($("#selectId").find("option:selected").text());//jquery 获取select值
+var selectVal =$("#selectId").find("option:selected").val();
+	if(selectVal != 'xianshi'){
+	
+		switch(selectVal){
+		case 'ty':
+$("#spjgTYhideaid").click();
+		  break;
+		case 'bty':
+$("#spjgBTYhideaid").click();	
+		  break;
+		case 'zj':
+		
+		break;
+		default:
+		
+		}
+	}//if
+
+}//selectOnchangeVal
+
+</script>
+<script type="application/javascript">
+
+function dtjztyzjr(){//动态加载同意转交人信息
+	
+	var list = $(" <option value=\"zj\">转交</option>");
+	$("#sptyselectId").append(list);
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="application/javascript">
+//审批意见
+var instid = getUrlParam("instid");
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataDecent?instid="+instid+"&callbackname=getspxmmbcallback&hid=864219020023223&sqlid=15&appid=11",function(response,status){/*alert(response+"funciton"+status);*/});	
+
+</script>
+</head>	
+<body>
+<a href="#spjgBTYpage" data-rel="dialog" id="spjgBTYhideaid"></a><!--onclick="getzrgninfobyguid('11')"-->
+<a href="#spjgTYpage" data-rel="dialog" id="spjgTYhideaid"></a><!--onclick="getzrgninfobyguid('11')"-->
+
+<div data-role="page" id="pageone" data-theme="b" style="color:#4073A5">
+  <div data-role="header" data-position="fixed">
+<!--     <a href="#" onclick="jumpInfoPage('SPLieBiao.html')"><img src="../images/fh3.png" width="30" height="19" /></a> 返回图片按钮-->
+    <h1>审批信息</h1>
+	<a href="#" data-role="button" data-icon="home" onclick="jumpInfoPage('SPIndex.html')">首页</a>
+    	
+  </div>
+
+<div data-role="content" style="text-align:center; background-color: #B5DAFF;" >
+<h2 style=" font-weight:900" id="SPTitleId">离监就医审批</h2>
+
+<!--		zf信息-->
+
+		<div id="zfxxxinxidivid" >
+    		
+       </div>
+<script id="zfxxxinxiscriptid" type="text/html">
+<table class="gridtable" border="1" cellspacing="0" cellpadding="0"><tr> <th style="width:70px;" scope="col">姓名</th> <th scope="col" style="width:100px;">案情</th><th scope="col" style="width:80px">刑期</th><th  style="width:100px;" scope="col">病情</th></tr>
+    {{each  as value i}}
+			<tr><td style="text-align:center"><a href="#ljrypage" data-rel="dialog" onclick="getljryinfobyguid('{{value.guid}}')"> {{value.xm}}</a></td><td>{{value.zm}}</td><td style="text-align:center">{{value.xq}}<td>{{value.LeavePrisonReason}}</td></tr>
+    {{/each}}
+
+</table>
+</script>
+<script>
+function getmbzfxxcallback(data){
+var html = template('zfxxxinxiscriptid', data);
+document.getElementById('zfxxxinxidivid').innerHTML = html;
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--		押解车辆-->
+		<label id="yjcl"></label>
+		<div id="yjclxinxidivid" >
+    		
+       </div>
+<script id="yjclscript" type="text/html">
+<table class="gridtable" border="1" cellspacing="0" cellpadding="0"><tr> <th style="width:116.666px;" scope="col">车牌号</th> <th style="width:116.666px;" scope="col">司机姓名</th><th style="width:116.666px;" scope="col">司机电话</th></tr>
+    {{each  as value i}}
+<tr><td>{{value.VehicleLicence}}</td><td>{{value.DriverName}}</td><td>{{value.DriverPhone}}</td></tr>
+    {{/each}}
+</table>
+</script>
+<script>
+function getyjcembInfoCallBack(data){
+var html = template('yjclscript', data);
+document.getElementById('yjclxinxidivid').innerHTML = html;
+$("#yjcl").text("押解车辆信息");	
+}
+</script>         
+       
+       
+
+<!--        押解责任干警-->
+		<label id="zrgjxx"></label>
+        <div id="yjzrgjxinxidivid" >
+    		
+       </div>
+
+<script id="zrganscript" type="text/html">
+<table class="gridtable" border="1" cellspacing="0" cellpadding="0"><tr> <th style="width:116.666px;" scope="col">姓名</th> <th style="width:116.666px;" scope="col">警号</th><th style="width:116.666px;" scope="col">职责分工</th></tr>
+
+    {{each  as value i}}
+
+<tr><td><a href="#zrgjpage" data-rel="dialog" onclick="getzrgninfobyguid('{{value.guid}}')">{{value.xm}} </a></td><td> {{value.GuidForPolice}} </td><td>{{value.respdivisionmc}}</td></tr>
+    {{/each}}
+</table>
+</script>
+<script>
+function getyjzrgjmbInfoCallBack(data){
+var html = template('zrganscript', data);
+document.getElementById('yjzrgjxinxidivid').innerHTML = html;
+$("#zrgjxx").text("押解责任干警信息");	
+}
+</script> 	   
+	   
+	   
+
+<!--		离监信息-->
+		<label id="ljxx"></label>
+		<div id="ljxinxidivid">
+    		
+       </div>
+<script id="ljxinxi" type="text/html">
+<table class="gridtable" border="1" cellspacing="0" cellpadding="0">
+    {{each  as value i}}
+<tr><td class="tdfont" style="width:150px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;">计划离监时间</td><td style="width:200px;">{{value.jhljtime}}</td></tr><tr><td class="tdfont" style="background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;">计划返监时间</td><td>{{value.jhfjtime}}</td></tr>
+<tr><td class="tdfont" style="background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;">离监去向</td><td>{{value.leaveprisondirection}}</td></tr><tr><td class="tdfont" style="background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;">行车路线</td><td>{{value.Travelway}}</td></tr><tr><td class="tdfont" style="background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;">应急处置</td><td>{{value.EmergencyDisposal}}</td></tr>
+
+    {{/each}}
+</table>
+</script>
+<script>
+function getljmbcallback(data){
+var html = template('ljxinxi', data);
+document.getElementById('ljxinxidivid').innerHTML = html;
+$("#ljxx").text("离监信息");
+}
+</script>       
+   
+	   
+<!--        审批意见-->
+		<label id="spyj"></label>
+       <div id="spyjxinxidivid" >
+			
+       </div>
+
+<script id="spyjxinxi" type="text/html">
+<table class="gridtable"  border="1" cellspacing="0" cellpadding="0">
+    {{each  as value i}}
+<tr> <td class="tdfont" style="width:150px;background:-webkit-gradient(linear,0 0,0 100%,from(#3F73A4),to(#5995BF));color:#FFF;text-shadow:0 0px 0 #FFF;">{{value.actname}}</td><td style="width:200px;text-align:left">{{value.instactstatedesc}} {{value.instactopername}} <p style=" float:right">{{value.instactactiontime}} </p> </td> </tr>
+    {{/each}}
+</table>
+</script>
+<script>
+
+
+
+function getspxmmbcallback(data){
+window.sessionStorage.setItem("InstEsconrtID",data[0].InstEsconrtID);
+  for(var i = 0; i < data.length; i++){//先把以后要的数据 取出来
+if(data[i].instactopersiren === window.localStorage.getItem("jh")){
+	window.sessionStorage.setItem("instactid",data[i].instactid);
+
+//1.只有确认按钮，转交2是审批环节同意和不同意，转交
+	if(data[i].actrule === "1"){
+		$("#qrid").text("确认");
+		$("#qrdivid").show();
+	}else if(data[i].actrule ==="2"){
+		$("#tyaid").text("同意");
+		$("#btyaid").text("不同意");		
+		
+		$("#spdivid").show();
+
+	}
+	var instactoperuserranges=data[i].instactoperuserrange.data;
+	
+		for(var ii = 0; ii < instactoperuserranges.length; ii++){//在获取审批类表的同时，把可以转交的人的信息，放到select中
+			var zjlist = $(" <option value=\""+instactoperuserranges[ii].jh+"\">"+instactoperuserranges[ii].xm+"</option>");
+			$("#spzjselectId").append(zjlist);		
+		}
+}
+}
+
+var html = template('spyjxinxi', data);
+document.getElementById('spyjxinxidivid').innerHTML = html;
+$("#spyj").text("审批意见");	
+
+
+//罪犯信息
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataSJ?InstEsconrtID="+window.sessionStorage.getItem("InstEsconrtID")+"&callbackname=getmbzfxxcallback&hid=864219020023223&sqlid=18&appid=11",function(response,status){})
+//离监信息
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataSJ?InstEsconrtID="+window.sessionStorage.getItem("InstEsconrtID")+"&callbackname=getljmbcallback&hid=864219020023223&sqlid=19&appid=11",function(response,status){})
+//获取-------押解车辆信息
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetDataSJ?InstEsconrtID="+window.sessionStorage.getItem("InstEsconrtID")+"&callbackname=getyjcembInfoCallBack&hid=864219020023223&sqlid=17&appid=11",function(response,status){})
+//获取押解责任干警信息<td>这是警号</td>
+$.getScript(getServerIpAddress()+"/YZBGinterface/GetYJZRGJAndName?InstEsconrtID="+window.sessionStorage.getItem("InstEsconrtID")+"&callbackname=getyjzrgjmbInfoCallBack&hid=864219020023223&sqlid=16&appid=11",function(response,status){})
+}
+</script>   
+
+
+
+
+
+
+
+
+
+
+   
+   
+   
+   
+</div><!--content-->
+  
+  
+ 
+<!--  确定、同意、不同意、转交-->
+        
+        <div align="center" style="display: none;background-color: #B5DAFF;" id="qrdivid" >
+        <a href="#" data-role="button" data-inline="true" style="width:90px" onclick="spjgtyorqr()"><span id="qrid"></span></a>
+        <a href="#zjpage" data-role="button" data-rel="dialog" data-inline="true" style="width:90px"><span id="zjaid">转交</span></a>	
+         </div>
+         
+        <div align="center" style="display: none;background-color: #B5DAFF;" id="spdivid">
+        
+        <a href="#" data-role="button" data-inline="true" style="width:90px" onclick="spjgtyorqr()"><span id="tyaid"></span></a>
+        <a href="#spjgBTYpage" data-role="button" data-rel="dialog" data-inline="true" style="width:90px"><span id="btyaid"></span></a>
+        <a href="#zjpage" data-role="button" data-rel="dialog" data-inline="true" style="width:90px"><span id="zjaid">转交</span></a>
+        
+        </div>		
+        								  
+
+ 
+</div> 
+
+</div>
+
+
+
+
+
+
+<!--责任干警-->
+<div data-role="page" id="zrgjpage" style="padding-top:100px" data-close-btn="right">
+  <div data-role="header">
+    <h1>押解责任干警信息</h1>
+  </div>
+
+  <div data-role="content" align="center">
+
+  <table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="labelclass" scope="col">姓名：</td>
+    <td class="labelnrclass" scope="col"><span id="zrgjinfo_xm"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">警号：</td>
+    <td class="labelnrclass"><span id="zrgjinfo_jh"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">电话：</td>
+    <td class="labelnrclass"><span id="zrgjinfo_dh"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">对讲机：</td>
+    <td class="labelnrclass"><span id="zrgjinfo_djj"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">是否携带警棍：</td>
+    <td class="labelnrclass"><span id="zrgjinfo_sfxdjg"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">职责分工：</td>
+    <td class="labelnrclass"><span id="zrgjinfo_zzfg"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">分工描述：</td>
+    <td class="labelnrclass"><span id="zrgjinfo_fgms"></span></td>
+  </tr>
+</table>
+
+        	     
+
+  </div>
+
+  <div data-role="footer">
+ 	 <h1></h1>
+  </div>
+</div> 
+
+
+<!------------------------------zf信息-->
+<div data-role="page" id="ljrypage" style="padding-top:100px" data-close-btn="right">
+  <div data-role="header">
+    <h1>离监人员信息</h1>
+  </div>
+
+  <div data-role="content" align="center">
+
+  <table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="labelclass" scope="col">姓名：</td>
+    <td class="labelnrclass" scope="col"><span id="ljryinfo_xm"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">性别：</td>
+    <td class="labelnrclass"><span id="ljryinfo_xb"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">出生日期：</td>
+    <td class="labelnrclass"><span id="ljryinfo_csrq"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">案情：</td>
+    <td class="labelnrclass"><span id="ljryinfo_an"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">刑期：</td>
+    <td class="labelnrclass"><span id="ljryinfo_xq"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">刑期起止日：</td>
+    <td class="labelnrclass"><span id="ljryinfo_xqqzr"></span></td>
+  </tr>
+  <tr>
+    <td class="labelclass">家庭住址：</td>
+    <td class="labelnrclass"><span id="ljryinfo_jtzz"></span></td>
+  </tr>
+    <tr>
+  <td class="labelclass">罪犯类别：</td>
+    <td class="labelnrclass"><span id="ljryinfo_zflb"></span></td>
+  </tr>
+</table>
+
+
+        	     
+
+  </div>
+
+  <div data-role="footer">
+ 	 <h1></h1>
+  </div>
+</div> 
+
+
+
+
+<!--审批结果界面-->
+<div data-role="page" id="spjgBTYpage" style="padding-top:100px" data-close-btn="right">
+  <div data-role="header">
+    <h1>审批操作</h1>
+  </div>
+
+  <div data-role="content" align="center">
+ <table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td style=" font-weight:900">不同意理由：</td>
+    <td><textarea style="height:80px" maxlength="15" id="textareaid">请输入不同意理由，不要操过15个汉字！</textarea></td>
+  </tr>
+  
+    <tr>
+    <td></td>
+    <td align="right" style="margin-right:20px"><a href="#" data-role="button" data-theme="b" onclick="btytj()" style="width:50%" >提交</a></td>
+  </tr>
+ </table>
+
+ 
+        	     
+
+  </div>
+
+  <div data-role="footer">
+ 	 <h1></h1>
+  </div>
+</div> 
+
+
+<!--zhuanjiao 转交-->
+<div data-role="page" id="zjpage" style="padding-top:100px" data-close-btn="right">
+  <div data-role="header">
+    <h1>审批操作</h1>
+  </div>
+
+  <div data-role="content" align="center">
+ <table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td style=" font-weight:900">转交给：</td>
+    <td>
+    		 <fieldset data-role="controlgroup" data-type="horizontal">
+              <select name="spzjselectId" id="spzjselectId">
+            
+            </select>
+         </fieldset>
+    </td>
+  </tr>
+  
+    <tr>
+    <td></td>
+    <td align="right" style="margin-right:20px"><a href="#" data-role="button" data-theme="b" onclick="spzjbutton()" >提交</a></td>
+  </tr>
+ </table>
+
+ 
+        	     
+
+  </div>
+
+  <div data-role="footer">
+ 	 <h1></h1>
+  </div>
+</div> 
+
+
+
+
+
+
+
+</body>
+</html>
+    
+
+

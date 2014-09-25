@@ -1,5 +1,7 @@
 package com.zxct.yzbg.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,7 +22,9 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -38,21 +42,43 @@ private NotificationManager nm;
 private static final int ID = 1;
 HttpClientToServer httpClientToServer;
 
-    int i =0;
+
+SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+
     private Runnable task = new Runnable() {  
         public void run() {   
-        	
-        	  new Thread(new Runnable(){
+      	  // TODO Auto-generated method stub
+            handler.postDelayed(this,10*1000);//设置延迟时间，此处是5秒
+            Date date=new Date();
+            //需要执行的代码
+         Toast.makeText(NotifyService.this, jh+"`````````````"+df.format(date), Toast.LENGTH_LONG).show();
+         
+
+// 		
+//     	SharedPreferences sharedPreferences = getSharedPreferences("jbsz_gzzt", Context.MODE_PRIVATE);
+// 		//getString()第二个参数为缺省值，如果preference中不存在该key，将返回缺省值
+// 		String zt = sharedPreferences.getString("switchTest", "");
+//
+// 	         
+// 		if(zt =="true"){
+//Toast.makeText(NotifyService.this, zt+"`````````````", Toast.LENGTH_LONG).show();
+ 			  new Thread(new Runnable(){
                   @Override
                   public void run() {
-                	  httpClientToServer = new HttpClientToServer();
+              try {
+            		httpClientToServer = new HttpClientToServer();
+		    		jh = httpClientToServer.doPost();
+		    		
+                    httpClientToServer = new HttpClientToServer();
                   	JSONArray jsonArray = httpClientToServer.doPostParams(jh);
                   
                   	if(jsonArray.length() !=0){
+                  		
                   		JSONObject jsonObj;
-						try {
-							jsonObj = (JSONObject) jsonArray.get(0);
-							String title =jsonObj.getString("instdesc");
+                      	jsonObj = (JSONObject) jsonArray.get(0);
+                      	
+                      		 String title =jsonObj.getString("instdesc");
 	        				String body =jsonObj.getString("sendusername")+"----"+jsonObj.getString("createtime");
 		
 //       				
@@ -91,24 +117,35 @@ HttpClientToServer httpClientToServer;
 	        		        n.defaults |= Notification.DEFAULT_SOUND; 
 	        		        n.flags=Notification.FLAG_AUTO_CANCEL;//点击后消除
 	                		nm.notify(ID,n);
-	                  		
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}  				
-        				
+	                		
+	                		
+	                		String guid =jsonObj.getString("guid");
+	                      	
+	                      	httpClientToServer.updateData(guid);
+	                      	
+	                        
+	                       
+
                   	}
                 		                		
-                  }
+              	} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}  			
+       }
+                  
               }).start();
-        	
-        	  
-            // TODO Auto-generated method stub
-                handler.postDelayed(this,10*1000);//设置延迟时间，此处是5秒
-               		
-                //需要执行的代码
-             Toast.makeText(NotifyService.this, jh+"`````````````"+i++, Toast.LENGTH_LONG).show();
-        }   
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ //		}//if(zt =="true")	
+         
+       
+
+        } //public void run  
     };
     
     
@@ -138,10 +175,9 @@ HttpClientToServer httpClientToServer;
   
    
     public int onStartCommand(Intent intent, int flags, int startId) { 
+    	
      	 System.out.println("service onStartCommand");
-		    	if(intent != null){
-		
-		   	jh= intent.getStringExtra("jh"); 	
+		    	if(intent != null){	
 		   	handler.post(task);//立即调用
 		    
 		

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta http-equiv="Access-Control-Allow-Origin" content="*">
+<!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+		<link rel="stylesheet" href="../css/jquery.mobile-1.3.2.min.css">
+        
+        <script type="text/javascript" charset="utf-8" src="../cordova-2.0.0.js"></script>      
+		<script type="text/javascript" src="../js/jquery.js"></script>    
+		<script type="text/javascript" src="../js/jquery.mobile-1.3.2.min.js"></script>
+
+   		<script type="text/javascript" src="../js/all.js"></script>
+        <script language='javascript' src='../js/serverIp.js' ></script>
+		<title>主页</title>
+<script type="text/javascript">
+ $(document).ready(function(){ 
+//alert(getUrlParam("bh"));
+ 
+	//$("#divid").height($(document).height());  
+	//$("#sousuwenbenid").width($(document).width-56-130);  
+getPluginInfo();
+getNFCPluginInfo();
+getServerDeta();
+		
+ })
+
+//通知栏
+var NotificationMessenger = {   
+        notify:function(title, body) {  
+            return cordova.exec(null, null, 'StatusBarNotification','notify', [title, body]);  
+        },  
+        clear:function() {  
+            return cordova.exec(null, null, 'StatusBarNotification', 'clear', []);  
+        },  
+           
+   
+   
+} 
+
+
+function aaa(){
+        NotificationMessenger.notify("通知栏", "Phonegap Andriod");
+    }
+</script>
+
+</head>	
+<body>
+
+<div data-role="page">
+<input type="button"  onClick="aaa()" value="获取插件信息"/>
+
+<!--	<a href="#" data-role="button" onclick="initdatabase();">创建数据库</a>
+    <a href="#" data-role="button" onclick="initdeta();">插入数据</a>-->
+<!--    <a href="#" data-role="button" onclick="getServerDeta();">获取后台数据</a>
+    <a href="#" data-role="button" data-icon="search" data-inline="true" data-mini="true" onclick="getServerDeta()">搜索</a>
+    <input type="text" id="serverDataByThis"/>
+        -->
+<div data-role="content" style="width:auto" >
+     <ul data-role="listview"  data-autodividers="false" data-inset="true"  id="list" >
+ 
+        	<input type="search" name="search-restaurants" id="searchid" placeholder="输入要查找的姓名、姓名拼音、编号或卡类码"/>
+ 
+    </ul>
+  </div>
+
+
+
+
+
+       
+
+
+
+
+
+
+
+
+</div>
+</body>
+
+</html>
+    
+
+

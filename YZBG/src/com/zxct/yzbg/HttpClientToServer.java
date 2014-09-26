@@ -26,7 +26,7 @@ import org.json.JSONObject;
 public class HttpClientToServer {
 
 	//String urlAddress = "http://192.168.0.18:8080/AndroidServer/login.do";
-	String urlAddress="http://192.168.0.18:8080/YZBGinterface/AndroidServlet?hid=864219020023223";
+	String urlAddress="http://192.168.0.16:8080/YZBGinterface/AndroidServlet?hid=864219020023223";
 	public HttpClientToServer(){
 			
 		}
@@ -106,7 +106,7 @@ public class HttpClientToServer {
 		
 		
 		//String getUrl = urlAddress + "?username="+username+"&password="+password;
-		String doPostParamsurlAddress="http://192.168.0.18:8080/YZBGinterface/AndroidGetDataDecent?hid=864219020023223&&sqlid=300&appid=11&jh="+jh;
+		String doPostParamsurlAddress="http://192.168.0.16:8080/YZBGinterface/AndroidGetDataDecent?hid=864219020023223&&sqlid=300&appid=11&jh="+jh;
 		HttpPost httpPost = new HttpPost(doPostParamsurlAddress);
 System.out.println("doPostParams-->"+jh);		
 		List params = new ArrayList();
@@ -169,7 +169,7 @@ System.out.println("doPostParams-->"+jh);
 	public void updateData(String guid) {
 	
 		//String getUrl = urlAddress + "?username="+username+"&password="+password;
-		String doPostParamsurlAddress="http://192.168.0.18:8080/YZBGinterface/UpdateData?hid=864219020023223&&sqlid=303&appid=11&guid="+guid;
+		String doPostParamsurlAddress="http://192.168.0.16:8080/YZBGinterface/UpdateData?hid=864219020023223&&sqlid=303&appid=11&guid="+guid;
 		HttpPost httpPost = new HttpPost(doPostParamsurlAddress);
 System.out.println("doPostParams-->"+guid);		
 		List params = new ArrayList();

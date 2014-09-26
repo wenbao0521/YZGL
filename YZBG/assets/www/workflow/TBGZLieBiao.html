@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta http-equiv="Access-Control-Allow-Origin" content="*">
+<!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+		<link rel="stylesheet" href="../css/jquery.mobile-1.3.2.min.css">
+        
+		<script type="text/javascript" src="../js/jquery.js"></script>    
+		<script type="text/javascript" src="../js/jquery.mobile-1.3.2.min.js"></script>
+
+   		<script type="text/javascript" src="../js/all.js"></script>
+        <script language='javascript' src='../js/serverIp.js' ></script>
+		<title>主页</title>
+
+<script type="text/javascript">
+ $(document).ready(function(){ 
+		getTBGZLIEBIAO();
+ })
+
+</script>
+
+</head>	
+<body> 
+
+<div data-role="page" id="pageone" data-theme="b"  >
+  <div data-role="header" data-position="fixed">
+    <!-- <a href="#" data-role="button"  data-icon="back" data-rel="back" data-iconpos="notext" class="ui-btn-left">后退</a>-->
+<!--     <a href="#" onclick="jumpInfoPage('SPIndex.html')"><img src="../images/fh3.png" width="30" height="19" /></a> 返回图片按钮-->
+    <h1>特别关注</h1>
+    	<a href="#" data-role="button" data-icon="home" onclick="jumpInfoPage('SPIndex.html')">首页</a>
+  </div>
+
+  <div data-role="content" style="height:501px; background-color: #B5DAFF" >
+	
+    <ul data-role="listview" id="list">
+     <!-- <li>
+      	<a href="#" onclick="jumpInfoPage('SPPage.html')">
+      		
+            	<p style="font-weight:800; font-size:16px; margin-top:5px">XX审批</p>
+                <p><span>XX审批信息</span><span style="float:right;">今天 XX</span></p> 
+                <p style="margin-top:5px; color:red;">未审批</p>  
+      
+        </a>
+      </li>-->
+     
+    </ul>
+
+
+</div><!--content-->
+
+
+
+
+
+
+
+
+
+
+  <div data-role="footer" data-position="fixed">
+  <h1>更新于  <span id="tbgzgxyid"></span></h1>
+  </div>
+</div> 
+
+
+
+
+</div>
+
+
+</body>
+
+</html>
+    
+
+

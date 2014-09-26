@@ -43,16 +43,16 @@ private static final int ID = 1;
 HttpClientToServer httpClientToServer;
 
 
-SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
 
     private Runnable task = new Runnable() {  
         public void run() {   
       	  // TODO Auto-generated method stub
             handler.postDelayed(this,10*1000);//设置延迟时间，此处是5秒
-            Date date=new Date();
+  //          Date date=new Date();
             //需要执行的代码
-         Toast.makeText(NotifyService.this, jh+"`````````````"+df.format(date), Toast.LENGTH_LONG).show();
+      //   Toast.makeText(NotifyService.this, jh+"`````````````"+df.format(date), Toast.LENGTH_LONG).show();
          
 
 // 		
@@ -67,11 +67,11 @@ SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                   @Override
                   public void run() {
               try {
-            		httpClientToServer = new HttpClientToServer();
+            		httpClientToServer = new HttpClientToServer();//根据imei码获取警号
 		    		jh = httpClientToServer.doPost();
 		    		
                     httpClientToServer = new HttpClientToServer();
-                  	JSONArray jsonArray = httpClientToServer.doPostParams(jh);
+                  	JSONArray jsonArray = httpClientToServer.doPostParams(jh);//根据警号获取，是否有 要审批记录
                   
                   	if(jsonArray.length() !=0){
                   		
@@ -101,7 +101,7 @@ SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	                		nm = (NotificationManager)getSystemService(service);
 	                		n = new Notification();
 	                		int icon =  n.icon = R.drawable.notification;
-	                		String tickerText = title+"title";
+	                		String tickerText = title;
 	                		long when = System.currentTimeMillis();
 	                		n.icon = icon;
 	                		n.tickerText = tickerText;
@@ -114,7 +114,7 @@ SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	                		
 	                		PendingIntent pi = PendingIntent.getActivity(NotifyService.this, 0, intent, 0);
 	                		n.setLatestEventInfo(NotifyService.this,title, body, pi);
-	        		        n.defaults |= Notification.DEFAULT_SOUND; 
+	        		        n.defaults |= Notification.DEFAULT_SOUND; //默认声音
 	        		        n.flags=Notification.FLAG_AUTO_CANCEL;//点击后消除
 	                		nm.notify(ID,n);
 	                		
